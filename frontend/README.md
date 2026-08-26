@@ -1,6 +1,6 @@
-Frontend (LSM)
+Frontend local de Senix LSM
 
-Esta carpeta contiene el frontend React/Vite del MVP. Es una copia del prototipo de detección con MediaPipe.
+Cliente React/Vite para practicar LSM con cámara, overlay de puntos y grabación de muestras. No requiere Firebase ni credenciales externas.
 
 Instalación y ejecución:
 
@@ -10,4 +10,4 @@ npm install
 npm run dev
 ```
 
-El código del prototipo principal está en `src/App.jsx`.
+El frontend espera el backend en `http://localhost:3001`. Vite redirige automáticamente `/api` y `/uploads` al backend durante el desarrollo.

@@ -1,11 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import { storage, auth } from "./firebase";
-import {
-  ref as storageRef,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-
 export default function Recorder({ videoRef }) {
   const [recording, setRecording] = useState(false);
   const [label, setLabel] = useState("");
@@ -57,38 +50,26 @@ export default function Recorder({ videoRef }) {
   const handleStop = async () => {
     const blob = new Blob(chunksRef.current, { type: "video/webm" });
     if (!blob.size) return alert("Grabación vacía");
-    // prepare upload
-    const user = auth.currentUser;
-    const uid = user ? user.uid : "anonymous";
-    const ts = Date.now();
-    const safeLabel = (label || "unlabeled").replace(/[^a-zA-Z0-9-_]/g, "_");
-    const path = `dataset/${uid}/${safeLabel}_${ts}.webm`;
-    const sRef = storageRef(storage, path);
-    const meta = {
-      contentType: "video/webm",
-      customMetadata: { uid, label: label || "", timestamp: String(ts) },
-    };
-
-    const uploadTask = uploadBytesResumable(sRef, blob, meta);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const pct = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
-        );
-        setProgress(pct);
-      },
-      (error) => {
-        console.error(error);
-        alert("Error subiendo video: " + error.message);
-      },
-      async () => {
-        const url = await getDownloadURL(uploadTask.snapshot.ref);
-        setLastUrl(url);
-        setProgress(100);
-        alert("Video subido a Firebase Storage");
-      },
-    );
+    const formData = new FormData();
+    formData.append("clip", blob, `${label || "unlabeled"}-${Date.now()}.webm`);
+    formData.append("label", label || "unlabeled");
+    formData.append("source", "local-browser");
+    try {
+      setProgress(10);
+      const response = await fetch("/api/upload-clip", {
+        method: "POST",
+        body: formData,
+      });
+      if (!response.ok)
+        throw new Error("El backend local rechazó la grabación");
+      const result = await response.json();
+      setLastUrl(result.url);
+      setProgress(100);
+    } catch (error) {
+      console.error(error);
+      setProgress(0);
+      alert("No se pudo guardar el video localmente. ¿Está activo el backend?");
+    }
   };
 
   return (

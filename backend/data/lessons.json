@@ -1,0 +1,20 @@
+[
+  {
+    "id": "saludos",
+    "order": 1,
+    "title": "Saludos",
+    "description": "Aprende hola, adiós y gracias."
+  },
+  {
+    "id": "familia",
+    "order": 2,
+    "title": "Familia",
+    "description": "Practica palabras para hablar de tu familia."
+  },
+  {
+    "id": "cotidiano",
+    "order": 3,
+    "title": "Vida cotidiana",
+    "description": "Construye vocabulario útil para cada día."
+  }
+]

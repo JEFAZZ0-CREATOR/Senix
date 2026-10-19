@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <title>Escanear residuo — EcoApp</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="escaner.css">
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="menu.html"><span class="brand-mark"></span>EcoApp</a>
+      <ul class="side-links" id="sideLinks"></ul>
+      <div class="side-user">
+        Sesión de <strong id="sideUserName">—</strong>
+        <button onclick="ecoappLogout()">Cerrar sesión →</button>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
+
+    <div class="main-col">
+      <header class="topbar-mobile" id="topbarMobile"></header>
+
+      <main class="main">
+        <div class="scanner-status">
+          <span class="dot-live"></span>
+          IA EN TU NAVEGADOR · 1000+ categorías en tiempo real
+        </div>
+
+        <h1>Escanear un residuo</h1>
+        <p class="subtitle">Usa el escáner en vivo o sube una fotografía. La IA reconoce el objeto, identifica
+          el material y te da información completa.</p>
+
+        <div class="card live-card" id="liveCard">
+          <h3 style="margin:0 0 6px;">📡 Escáner en vivo</h3>
+          <p class="live-sub">Apunta la cámara a uno o varios residuos: la IA los ubica y clasifica en tiempo real
+            (detecta varios a la vez y reconoce más de 1000 tipos de objetos).</p>
+          <div class="live-stage" id="liveStage" style="display:none;">
+            <video id="liveVideo" playsinline muted autoplay></video>
+            <canvas id="liveCanvas"></canvas>
+          </div>
+          <div class="live-status" id="liveStatus"></div>
+          <div class="live-actions">
+            <button class="btn btn-primary" type="button" id="btnLiveStart">▶ Iniciar escáner en vivo</button>
+            <button class="btn btn-ghost" type="button" id="btnLiveSwitch" style="display:none;">🔄 Cambiar cámara</button>
+            <button class="btn btn-ghost" type="button" id="btnLiveStop" style="display:none;">⏹ Detener</button>
+          </div>
+          <div id="liveList" class="live-list"></div>
+        </div>
+
+        <div class="card">
+          <!-- Drop zone -->
+          <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Subir imagen">
+            <div id="scanPreviewIcon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                  d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2" />
+                <circle cx="12" cy="12" r="3.5" />
+              </svg>
+            </div>
+            <img id="previewImg" class="preview-img" style="display:none;" alt="Previsualización">
+            <p id="dropText">
+              <strong>Toca para subir una foto</strong><br>
+              <span style="color:var(--moss); font-size:.9rem;">o arrástrala aquí</span>
+            </p>
+          </div>
+
+          <input type="file" id="fileInput" accept="image/*" style="display:none;">
+          <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;">
+
+          <div class="capture-options">
+            <button class="btn btn-ghost" type="button" id="btnArchivos">📁 Subir desde archivos</button>
+            <button class="btn btn-ghost" type="button" id="btnCamara">📷 Usar la cámara</button>
+          </div>
+
+          <button class="btn btn-primary btn-block" id="analyzeBtn" style="margin-top:22px;" disabled
+            onclick="analizar()">
+            Analizar residuo
+          </button>
+
+          <div class="loading" id="loadingRow">
+            <div class="spinner"></div>
+            <span id="loadingText">Analizando imagen con IA…</span>
+          </div>
+
+          <!-- Resultado -->
+          <div class="result-card" id="resultCard">
+            <div class="result-head">
+              <div style="flex:1; min-width:0;">
+                <span class="badge" id="badgeBio"></span>
+                <h2 id="resNombre" style="margin-top:12px;"></h2>
+                <p id="resMaterial" style="color:var(--forest-mid); margin:0; font-size:.95rem;"></p>
+                <div class="confidence-bar">
+                  <div class="fill" id="confidenceFill" style="width:0%;"></div>
+                </div>
+              </div>
+              <div class="result-obj" id="resIcon"></div>
+            </div>
+
+            <div class="meta-chips">
+              <span class="chip">Coincidencia <strong id="chipConfianza"></strong></span>
+              <span class="chip">Impacto <strong id="chipImpacto"></strong></span>
+              <span class="chip">Degradación <strong id="chipDegradacion"></strong></span>
+              <span class="chip">Categoría <strong id="chipCategoria"></strong></span>
+            </div>
+
+            <p id="resImpacto"></p>
+
+            <!-- Composición y propiedades -->
+            <div class="info-grid" id="infoGrid">
+              <div class="info-item">
+                <span class="info-label">Composición</span>
+                <p class="info-value" id="infoComposicion"></p>
+              </div>
+              <div class="info-item">
+                <span class="info-label">¿Reciclable?</span>
+                <p class="info-value" id="infoReciclable"></p>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Ahorro de energía</span>
+                <p class="info-value" id="infoEnergia"></p>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Ahorro de agua</span>
+                <p class="info-value" id="infoAgua"></p>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Ahorro de CO₂</span>
+                <p class="info-value" id="infoCo2"></p>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Tiempo de degradación</span>
+                <p class="info-value" id="infoDegradacion"></p>
+              </div>
+            </div>
+
+            <!-- Datos curiosos -->
+            <div class="info-section" id="sectionDatos">
+              <h4>💡 Datos que debes saber</h4>
+              <ul id="listDatos"></ul>
+            </div>
+
+            <!-- Consejos -->
+            <div class="info-section" id="sectionConsejos">
+              <h4>✅ Consejos prácticos</h4>
+              <ul id="listConsejos"></ul>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-block">
+                <h4>Alternativas biodegradables</h4>
+                <ul id="listAlternativas"></ul>
+              </div>
+              <div class="result-block">
+                <h4>Segunda vida</h4>
+                <ul id="listSegundaVida"></ul>
+              </div>
+            </div>
+
+            <div class="mejores-consumir">
+              <h4>¿Qué es mejor consumir en lugar de este material?</h4>
+              <ul id="listMejoresConsumir"></ul>
+            </div>
+
+            <div class="result-block" style="margin-top:22px;">
+              <h4>Cómo reciclarlo correctamente</h4>
+              <p id="resReciclaje" style="margin:0;"></p>
+            </div>
+
+            <!-- Impacto ambiental -->
+            <div class="impacto-ambiental" id="impactoAmbiental">
+              <h4>🌍 Impacto ambiental</h4>
+              <p id="resImpactoAmbiental"></p>
+            </div>
+
+            <!-- MAPA SIEMPRE VISIBLE -->
+            <div class="recycling-places" id="recyclingPlaces">
+              <h4>📍 ¿Dónde llevar este material a reciclar? (Escobedo, N.L.)</h4>
+              <p style="font-size:.85rem; color:var(--moss); margin:-6px 0 14px;">
+                Toca un punto para centrarlo en el mapa ↓
+              </p>
+              <div id="placesList"></div>
+              <div id="mapWrap" class="map-wrap-frame"></div>
+              <p style="font-size:.78rem; color:var(--moss); margin:12px 0 0;">
+                Llama antes de ir para confirmar horarios y disponibilidad.
+              </p>
+            </div>
+
+            <div class="curiosidad" id="resCuriosidad"></div>
+
+            <div class="result-actions">
+              <button class="btn btn-primary" id="saveBtn" onclick="guardar()">Guardar en historial</button>
+              <button class="btn btn-ghost" onclick="reiniciar()">Escanear otro</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="clasificador.js"></script>
+  <script src="ia.js"></script>
+  <script src="layout.js"></script>
+  <script src="app.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      ecoappInitShell("escanear");
+
+      let resultadoActual = null, guardado = false;
+      let currentImageDataUrl = null;
+
+      const fileInput = document.getElementById("fileInput");
+      const cameraInput = document.getElementById("cameraInput");
+      const dropZone = document.getElementById("dropZone");
+      const previewImg = document.getElementById("previewImg");
+      const scanIcon = document.getElementById("scanPreviewIcon");
+      const dropText = document.getElementById("dropText");
+      const analyzeBtn = document.getElementById("analyzeBtn");
+
+      function abrirArchivos() { fileInput.click(); }
+      function abrirCamaraNativa() { cameraInput.click(); }
+
+      dropZone.addEventListener("click", abrirArchivos);
+      dropZone.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); abrirArchivos(); }
+      });
+
+      document.getElementById("btnArchivos").addEventListener("click", abrirArchivos);
+      document.getElementById("btnCamara").addEventListener("click", abrirCamaraNativa);
+
+      function onFileSelected(e) {
+        if (e.target.files && e.target.files[0]) usarImagen(e.target.files[0]);
+        e.target.value = "";
+      }
+      fileInput.addEventListener("change", onFileSelected);
+      cameraInput.addEventListener("change", onFileSelected);
+
+      ["dragenter", "dragover"].forEach(evt =>
+        dropZone.addEventListener(evt, e => { e.preventDefault(); dropZone.classList.add("drag-over"); })
+      );
+      ["dragleave", "drop"].forEach(evt =>
+        dropZone.addEventListener(evt, e => { e.preventDefault(); dropZone.classList.remove("drag-over"); })
+      );
+      dropZone.addEventListener("drop", e => {
+        e.preventDefault();
+        const f = e.dataTransfer.files[0];
+        if (f && f.type.startsWith("image/")) usarImagen(f);
+      });
+
+      function usarImagen(file) {
+        if (!file || !file.type.startsWith("image/")) return;
+        const r = new FileReader();
+        r.onload = e => mostrarPreview(e.target.result, file.name);
+        r.readAsDataURL(file);
+      }
+
+      function mostrarPreview(dataUrl, label) {
+        currentImageDataUrl = dataUrl;
+        previewImg.src = dataUrl;
+        previewImg.style.display = "block";
+        scanIcon.style.display = "none";
+        dropText.innerHTML = `<strong>${label || "Foto lista"}</strong><br>
+          <span style="color:var(--moss); font-size:.9rem;">Toca para cambiar</span>`;
+        dropZone.classList.add("has-file");
+        analyzeBtn.disabled = false;
+        document.getElementById("resultCard").style.display = "none";
+      }
+
+      /* ---------- Analizar ---------- */
+      window.analizar = async function () {
+        if (!currentImageDataUrl) return;
+        analyzeBtn.disabled = true;
+        const loadingRow = document.getElementById("loadingRow");
+        loadingRow.style.display = "flex";
+        document.getElementById("resultCard").style.display = "none";
+        guardado = false;
+        document.getElementById("saveBtn").textContent = "Guardar en historial";
+
+        try {
+          let resultado = null;
+          try {
+            resultado = await ECOAPP_IA.clasificarDataUrl(currentImageDataUrl, msg => {
+              document.getElementById("loadingText").textContent = msg;
+            });
+          } catch (iaErr) { console.warn("IA no disponible, uso análisis por color:", iaErr.message); }
+          if (!resultado) {                       // respaldo: análisis por color/forma
+            const analisis = await ECOAPP.analizarImagen(currentImageDataUrl);
+            resultado = ECOAPP.clasificar(analisis);
+          }
+          resultadoActual = resultado;
+
+          loadingRow.style.display = "none";
+          pintarResultado(resultado);
+
+          const resultCard = document.getElementById("resultCard");
+          resultCard.style.display = "block";
+          resultCard.scrollIntoView({ behavior: "smooth", block: "start" });
+
+          analyzeBtn.disabled = false;
+        } catch (err) {
+          console.error("Error análisis:", err);
+          loadingRow.style.display = "none";
+          analyzeBtn.disabled = false;
+          alert("Hubo un error al analizar la imagen. Intenta de nuevo.");
+        }
+      };
+
+      /* ---------- Pintar resultado ---------- */
+      function pintarResultado(r) {
+        document.getElementById("resIcon").innerHTML = r.svgIcon || "";
+        document.getElementById("resNombre").textContent = r.nombre;
+        document.getElementById("resMaterial").textContent = r.material;
+        document.getElementById("resImpacto").textContent = r.impacto;
+        document.getElementById("resReciclaje").textContent = r.reciclaje;
+        document.getElementById("resCuriosidad").innerHTML = "<strong>Dato de interés:</strong> " + r.curiosidad;
+        document.getElementById("chipConfianza").textContent = r.confianza + "%";
+        document.getElementById("chipImpacto").textContent = r.nivelImpacto;
+        document.getElementById("chipDegradacion").textContent = r.tiempoDegradacion;
+        document.getElementById("chipCategoria").textContent = r.categoria;
+
+        const fill = document.getElementById("confidenceFill");
+        fill.style.width = "0%";
+        setTimeout(() => { fill.style.width = r.confianza + "%"; }, 80);
+
+        const badge = document.getElementById("badgeBio");
+        badge.textContent = r.biodegradable ? "Biodegradable" : "No biodegradable";
+        badge.className = "badge " + (r.biodegradable ? "badge-bio" : "badge-nobio");
+
+        // Info ampliada
+        document.getElementById("infoComposicion").textContent = r.composicion || "—";
+        document.getElementById("infoReciclable").textContent = r.reciclable || "—";
+        document.getElementById("infoEnergia").textContent = r.energiaAhorro || "—";
+        document.getElementById("infoAgua").textContent = r.aguaAhorro || "—";
+        document.getElementById("infoCo2").textContent = r.co2Ahorro || "—";
+        document.getElementById("infoDegradacion").textContent = r.tiempoDegradacion || "—";
+
+        // Datos curiosos
+        const listDatos = document.getElementById("listDatos");
+        listDatos.innerHTML = "";
+        (r.datos || []).forEach(d => {
+          const li = document.createElement("li");
+          li.textContent = d;
+          listDatos.appendChild(li);
+        });
+
+        // Consejos
+        const listConsejos = document.getElementById("listConsejos");
+        listConsejos.innerHTML = "";
+        (r.consejos || []).forEach(c => {
+          const li = document.createElement("li");
+          li.textContent = c;
+          listConsejos.appendChild(li);
+        });
+
+        // Alternativas
+        const alt = document.getElementById("listAlternativas"); alt.innerHTML = "";
+        (r.alternativas || []).forEach(a => {
+          const li = document.createElement("li"); li.textContent = a; alt.appendChild(li);
+        });
+        const sv = document.getElementById("listSegundaVida"); sv.innerHTML = "";
+        (r.segundaVida || []).forEach(a => {
+          const li = document.createElement("li"); li.textContent = a; sv.appendChild(li);
+        });
+        const mejores = document.getElementById("listMejoresConsumir"); mejores.innerHTML = "";
+        (r.mejoresConsumir || []).forEach(a => {
+          const li = document.createElement("li"); li.textContent = a; mejores.appendChild(li);
+        });
+
+        // Impacto ambiental
+        document.getElementById("resImpactoAmbiental").textContent = r.impactoAmbiental || "—";
+
+        pintarPuntos(r.puntos || []);
+      }
+
+      /* ---------- Puntos + mapa ---------- */
+      function pintarPuntos(puntos) {
+        const placesList = document.getElementById("placesList");
+        const mapWrap = document.getElementById("mapWrap");
+        const recyclingPlaces = document.getElementById("recyclingPlaces");
+        placesList.innerHTML = "";
+        mapWrap.innerHTML = "";
+        recyclingPlaces.style.display = "block";
+
+        if (!puntos || !puntos.length) {
+          placesList.innerHTML = "<p style='color:var(--moss); padding:12px 0;'>No hay puntos específicos para este material.</p>";
+          return;
+        }
+
+        puntos.forEach((p, idx) => {
+          const div = document.createElement("div");
+          div.className = "place-item" + (idx === 0 ? " place-active" : "");
+          div.innerHTML = `
+            <div class="place-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="place-info">
+              <strong>${ecoappEscapeHtml(p.nombre)}</strong>
+              <span>${ecoappEscapeHtml(p.direccion)}</span><br>
+              <span style="font-size:.78rem;">${ecoappEscapeHtml(p.horario || "")}${p.telefono ? " · " + ecoappEscapeHtml(p.telefono) : ""}</span><br>
+              <span style="font-size:.76rem; color:var(--gold);">Acepta: ${ecoappEscapeHtml(p.materiales)}</span>
+            </div>
+          `;
+          div.addEventListener("click", () => {
+            placesList.querySelectorAll(".place-item").forEach(x => x.classList.remove("place-active"));
+            div.classList.add("place-active");
+            actualizarMapa(p);
+          });
+          placesList.appendChild(div);
+        });
+
+        actualizarMapa(puntos[0]);
+      }
+
+      function actualizarMapa(punto) {
+        const mapWrap = document.getElementById("mapWrap");
+        const query = encodeURIComponent(punto.nombre + " Escobedo Nuevo León");
+        const url = `https://maps.google.com/maps?q=${query}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+
+        let iframe = mapWrap.querySelector("iframe");
+        if (!iframe) {
+          iframe = document.createElement("iframe");
+          iframe.loading = "lazy";
+          iframe.referrerPolicy = "no-referrer-when-downgrade";
+          iframe.allowFullscreen = true;
+          mapWrap.appendChild(iframe);
+        }
+        iframe.src = url;
+
+        let caption = mapWrap.querySelector(".map-caption");
+        if (!caption) {
+          caption = document.createElement("div");
+          caption.className = "map-caption";
+          mapWrap.appendChild(caption);
+        }
+        caption.textContent = "📍 " + punto.nombre + " — " + punto.direccion;
+      }
+
+      /* ---------- Guardar / reiniciar ---------- */
+      window.guardar = async function () {
+        if (!resultadoActual || guardado) return;
+        const btn = document.getElementById("saveBtn");
+        btn.disabled = true;
+        try {
+          await ecoappSaveHistorial({ ...resultadoActual, fecha: new Date().toISOString() });
+          guardado = true;
+          btn.textContent = "Guardado ✓";
+        } catch (e) {
+          alert("No se pudo guardar: " + e.message);
+        }
+        btn.disabled = false;
+      };
+
+      /* ---------- Mostrar un resultado que viene del escáner en vivo ---------- */
+      window.ecoappMostrarResultado = function (r, dataUrl) {
+        if (dataUrl) mostrarPreview(dataUrl, r.objeto || "Captura en vivo");
+        resultadoActual = r; guardado = false;
+        document.getElementById("saveBtn").textContent = "Guardar en historial";
+        pintarResultado(r);
+        const rc = document.getElementById("resultCard");
+        rc.style.display = "block";
+        rc.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+
+      window.reiniciar = function () {
+        previewImg.style.display = "none";
+        scanIcon.style.display = "flex";
+        dropText.innerHTML = `<strong>Toca para subir una foto</strong><br>
+          <span style="color:var(--moss); font-size:.9rem;">o arrástrala aquí</span>`;
+        dropZone.classList.remove("has-file");
+        analyzeBtn.disabled = true;
+        document.getElementById("resultCard").style.display = "none";
+        currentImageDataUrl = null;
+        resultadoActual = null;
+        guardado = false;
+      };
+
+      /* ---------- Escáner en vivo ---------- */
+      (function () {
+        const IA = ECOAPP_IA, Live = IA.Live;
+        const $ = id => document.getElementById(id);
+        const stage = $("liveStage"), status = $("liveStatus"), list = $("liveList");
+        const bStart = $("btnLiveStart"), bStop = $("btnLiveStop"), bSwitch = $("btnLiveSwitch");
+        let lastRender = 0, lastItems = [];
+
+        function ui(running) {
+          stage.style.display = running ? "block" : "none";
+          bStart.style.display = running ? "none" : "";
+          bStop.style.display = bSwitch.style.display = running ? "" : "none";
+        }
+
+        function renderList(items, fps) {
+          lastItems = items;
+          status.textContent = "● En vivo · " + fps + " FPS · " + items.length + (items.length === 1 ? " objeto" : " objetos");
+          const now = performance.now();
+          if (now - lastRender < 600 || (document.activeElement && document.activeElement.tagName === "SELECT")) return;
+          lastRender = now;
+          if (!items.length) { list.innerHTML = '<p class="live-empty">Buscando objetos… acerca el residuo a la cámara.</p>'; return; }
+          list.innerHTML = "";
+          items.forEach(it => {
+            const mat = ECOAPP.MATERIALES.find(m => m.id === it.materialId);
+            const row = document.createElement("div");
+            row.className = "live-item";
+            row.innerHTML = `
+              <span class="live-dot" style="background:${IA.COLOR[it.materialId] || "#999"}"></span>
+              <div class="live-info"><strong>${ecoappEscapeHtml(IA.nombreES(it.label))}</strong>
+                <small>${mat ? ecoappEscapeHtml(mat.nombre) : ""} · ${Math.round(it.conf * 100)}%</small></div>
+              <select aria-label="Corregir material">${ECOAPP.MATERIALES.map(m =>
+                `<option value="${m.id}" ${m.id === it.materialId ? "selected" : ""}>${ecoappEscapeHtml(m.nombre)}</option>`).join("")}</select>
+              <button class="btn btn-ghost live-more" type="button">Ver detalles</button>`;
+            row.querySelector("select").addEventListener("change", e => { Live.setMaterial(it.id, e.target.value); lastRender = 0; });
+            row.querySelector("button").addEventListener("click", () => {
+              const sel = row.querySelector("select").value;
+              const foto = Live.snapshot();
+              const r = IA.construirResultado(sel, it.label, it.conf);
+              Live.stop(); ui(false); status.textContent = ""; list.innerHTML = "";
+              window.ecoappMostrarResultado(r, foto);
+            });
+            list.appendChild(row);
+          });
+        }
+
+        bStart.addEventListener("click", async () => {
+          bStart.disabled = true; status.textContent = "Iniciando…";
+          try {
+            ui(true);
+            await Live.start($("liveVideo"), $("liveCanvas"), { onStatus: t => { status.textContent = t; }, onUpdate: renderList });
+          } catch (e) {
+            ui(false); Live.stop();
+            status.textContent = "⚠ " + e.message;
+          }
+          bStart.disabled = false;
+        });
+        bStop.addEventListener("click", () => { Live.stop(); ui(false); status.textContent = ""; list.innerHTML = ""; });
+        bSwitch.addEventListener("click", () => Live.switchCamera());
+        window.addEventListener("pagehide", () => Live.stop());
+      })();
+    })();
+  </script>
+</body>
+
+</html>

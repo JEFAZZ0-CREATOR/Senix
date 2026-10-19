@@ -1,0 +1,85 @@
+/* Shared lesson details. Mobile rules below only rearrange the desktop interface. */
+.lesson-camera-idle{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;color:#e7c9b8;text-align:center;pointer-events:none}
+.lesson-camera-idle strong,.lesson-camera-idle small{display:block;max-width:22rem;line-height:1.35}
+.lesson-camera-idle strong{font-size:.92rem}
+.lesson-camera-idle small{color:#c0a9a5;font-size:.75rem}
+.lesson-camera-idle-icon{display:grid;width:50px;height:50px;place-items:center;border:1px solid #ffc27e55;border-radius:16px;background:#ffc27e12;color:#ffd18a;font-size:24px}
+.lesson-camera-frame.is-live .lesson-camera-idle{display:none}
+.lesson-guide-kicker{display:block;color:#dca88f;font-size:.62rem;font-weight:800;letter-spacing:.12em}
+.lesson-guide-target-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px}
+.lesson-guide-target-row span{color:#bfa9aa;font-size:.72rem}
+
+@media(max-width:760px){
+  .lesson-modal{position:fixed;inset:0;display:block;padding:0;overflow:hidden;overscroll-behavior:contain}
+  .lesson-dialog.lesson-practice-dialog{
+    position:relative;display:grid;grid-template-rows:auto auto minmax(0,1fr) auto auto auto;
+    width:100%;max-width:none;height:100vh;height:100svh;max-height:none;min-height:0;
+    padding:calc(12px + env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));
+    overflow:hidden;border:0;border-radius:0;isolation:isolate;
+  }
+  .lesson-practice-dialog .quiz-close{top:max(10px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));z-index:6;display:grid;width:44px;height:44px;place-items:center;line-height:1}
+  .lesson-practice-dialog .quiz-top{align-items:center;min-height:44px;padding-right:52px;font-size:.76rem}
+  .lesson-practice-dialog #quiz-step{text-align:right}
+  .lesson-practice-dialog .quiz-track{height:7px;margin:8px 0 12px}
+  .lesson-practice-dialog #quiz-content{min-height:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;padding:0 1px 16px;scrollbar-gutter:stable}
+
+  /* Same lesson header and privacy badge as desktop, wrapped for a narrow screen. */
+  .lesson-practice-heading{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;margin:0 0 12px;padding:14px;border:1px solid #efba9638;border-radius:18px;background:linear-gradient(135deg,#3b2a35cc,#29212dcc)}
+  .lesson-practice-heading>div{min-width:0;flex:1 1 230px}
+  .lesson-practice-heading .eyebrow{display:block;margin-bottom:5px;color:#efb18f;font-size:.62rem;letter-spacing:.13em}
+  .lesson-practice-heading h2{margin:2px 0 6px;font-size:clamp(1.28rem,6vw,1.62rem);line-height:1.16;overflow-wrap:anywhere}
+  .lesson-practice-heading p{margin:0;color:#d3bdba;font-size:.82rem;line-height:1.45;overflow-wrap:anywhere}
+  .lesson-detect-badge{display:inline-flex;flex:0 0 auto;margin:0;padding:7px 10px;font-size:.58rem;white-space:normal}
+
+  /* Preserve both desktop panels and their order; only stack them. */
+  .lesson-practice-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+  .lesson-practice-card{min-width:0;padding:13px;border-radius:19px;box-shadow:none}
+  .lesson-practice-card-head{align-items:center;gap:8px;margin-bottom:10px;font-size:.69rem;line-height:1.25}
+  .lesson-practice-card-head>span:first-child{font-size:.7rem}
+  .lesson-practice-card-head>span:last-child{flex:0 0 auto;padding:5px 8px;border:1px solid currentColor;border-radius:999px;font-size:.57rem;text-align:right;white-space:normal}
+
+  .lesson-camera-card{order:1;background:linear-gradient(160deg,#362832,#241f2b)!important}
+  .lesson-camera-frame{position:relative;display:block;width:100%;height:auto;min-height:210px;max-height:none;aspect-ratio:4/3;overflow:hidden;border-radius:16px;isolation:isolate;contain:paint;background:radial-gradient(circle at 50% 50%,#211923,#130f17 75%)!important}
+  .lesson-camera-frame video,.lesson-camera-frame canvas{z-index:1;background:transparent}
+  .lesson-camera-frame .lesson-camera-corners{z-index:3}
+  .lesson-camera-frame .lesson-camera-idle{position:absolute;inset:0;width:100%;height:100%;padding:16px}
+  .lesson-camera-frame .lesson-camera-idle-icon{width:48px;height:48px;border-radius:15px;font-size:22px}
+  .lesson-camera-frame .lesson-camera-idle strong{font-size:.95rem}
+  .lesson-camera-frame .lesson-camera-idle small{font-size:.76rem}
+  .lesson-camera-meter{gap:8px;margin:11px 0}
+  .lesson-camera-meter>div:first-child{align-items:center;gap:8px;font-size:.8rem}
+  .lesson-camera-meter>div:first-child span,.lesson-camera-meter>div:first-child strong{padding:5px 8px;border:1px solid #efba9635;border-radius:999px;background:#fff1}
+  .lesson-camera-actions{display:flex;gap:9px;flex-wrap:nowrap}
+  .lesson-camera-actions .button{display:inline-flex;min-width:0;min-height:46px;align-items:center;justify-content:center;padding:10px 12px;touch-action:manipulation}
+  #lesson-camera-start,#lesson-camera-stop{display:inline-flex;flex:1 1 0;width:auto}
+  #lesson-camera-stop:disabled{display:inline-flex}
+  .lesson-camera-status{display:block;min-height:0;margin:10px 0 0;color:#c9b3b0;font-size:.76rem;line-height:1.45}
+
+  .lesson-sign-guide{order:2;display:block;padding:13px;background:linear-gradient(145deg,#382b35,#29232f)!important}
+  .lesson-guide-stage{position:relative;display:grid;width:100%;height:auto;min-height:205px;max-height:none;aspect-ratio:4/3;place-items:center;overflow:hidden;border-radius:16px;background:radial-gradient(circle at center,#493445 0,#2b2331 56%,#17121b 100%)!important}
+  .lesson-guide-stage:before{inset:10%}
+  .lesson-guide-stage:after{display:block;inset:22%}
+  .lesson-guide-mark{position:absolute;left:50%;top:50%;display:grid;place-items:center;width:clamp(92px,31vw,132px);height:auto;aspect-ratio:1;transform:translate(-50%,-50%);border:1px dashed #f1bc9880;border-radius:27px;background:#ffc27e0c;color:#ffd18a!important;font-size:clamp(2rem,10vw,3rem);line-height:1;text-align:center;box-shadow:none}
+  .lesson-guide-caption{display:block;bottom:13px;color:#bea9b6;font-size:.59rem}
+  .lesson-guide-cross{display:block}
+  .lesson-guide-copy{display:block;padding:13px 3px 3px}
+  .lesson-guide-kicker{display:block;margin-bottom:5px;font-size:.61rem}
+  .lesson-guide-target-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:9px;min-width:0}
+  .lesson-guide-target-row h3{margin:0;color:#fff4e8;font-size:clamp(1.5rem,7vw,2rem);line-height:1.1;overflow-wrap:anywhere}
+  .lesson-guide-target-row span{font-size:.75rem;line-height:1.35}
+  .lesson-camera-disclaimer{display:block;margin:13px 1px 0;padding-left:11px;color:#c9b3b0;font-size:.76rem;line-height:1.5}
+
+  /* Feedback and every desktop action remain available and easy to tap. */
+  .lesson-practice-dialog .quiz-feedback{min-height:0;margin:0;padding:9px 2px;font-size:.8rem;line-height:1.35}
+  .lesson-practice-dialog #quiz-check,.lesson-practice-dialog .xp-test-button{width:100%;min-height:50px;margin:0;padding:11px 14px;white-space:normal;line-height:1.2;touch-action:manipulation}
+  .lesson-practice-dialog #quiz-check{position:relative;z-index:4;border-radius:15px;font-size:.95rem;font-weight:800;box-shadow:0 -7px 24px #1a0d1570}
+  .lesson-practice-dialog .xp-test-button{margin-top:7px}
+  .lesson-practice-dialog button:disabled{cursor:default;opacity:.68}
+}
+
+@media(max-width:380px){
+  .lesson-dialog.lesson-practice-dialog{padding-inline:10px}
+  .lesson-camera-actions{flex-direction:column}
+  #lesson-camera-start,#lesson-camera-stop{width:100%}
+  .lesson-camera-frame,.lesson-guide-stage{min-height:190px}
+}

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Mapa de reciclaje — EcoApp</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .reciclaje-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .punto-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            transition: all .3s var(--ease);
+            cursor: pointer;
+        }
+
+        .punto-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--forest-mid);
+        }
+
+        .punto-card.place-active {
+            border-color: var(--gold);
+            background: rgba(201, 154, 63, .06);
+        }
+
+        .punto-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+        }
+
+        .punto-card .dir {
+            font-size: .88rem;
+            color: var(--moss);
+            margin-bottom: 8px;
+        }
+
+        .punto-card .meta {
+            font-size: .82rem;
+            color: var(--ink-soft);
+            margin-bottom: 4px;
+        }
+
+        .punto-card .materiales {
+            font-size: .8rem;
+            color: var(--gold);
+            font-weight: 500;
+            margin-top: 8px;
+        }
+
+        .material-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .mat-tab {
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: #fff;
+            cursor: pointer;
+            font-size: .92rem;
+            font-weight: 500;
+            transition: all .25s var(--ease);
+            -webkit-tap-highlight-color: transparent;
+            font-family: inherit;
+            color: var(--ink);
+        }
+
+        .mat-tab:hover {
+            border-color: var(--forest-mid);
+        }
+
+        .mat-tab.active {
+            background: var(--forest);
+            color: var(--paper);
+            border-color: var(--forest);
+        }
+
+        .map-wrap-frame {
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--line);
+            margin-top: 24px;
+            background: #eef3ea;
+        }
+
+        .map-wrap-frame iframe {
+            width: 100%;
+            height: 460px;
+            border: 0;
+            display: block;
+        }
+
+        .map-caption {
+            font-size: .76rem;
+            color: var(--moss);
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, .75);
+            font-family: 'JetBrains Mono', monospace;
+            border-top: 1px solid var(--line);
+        }
+
+        .empty-state-mini {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--moss);
+            font-size: .95rem;
+        }
+
+        @media (max-width: 900px) {
+            .reciclaje-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .map-wrap-frame iframe {
+                height: 320px;
+            }
+
+            .mat-tab {
+                padding: 9px 14px;
+                font-size: .88rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-shell">
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
+        <aside class="sidebar" id="sidebar">
+            <a class="brand" href="menu.html"><span class="brand-mark"></span>EcoApp</a>
+            <ul class="side-links" id="sideLinks"></ul>
+            <div class="side-user">
+                Sesión de <strong id="sideUserName">—</strong>
+                <button onclick="ecoappLogout()">Cerrar sesión →</button>
+            </div>
+        </aside>
+
+        <div class="main-col">
+            <header class="topbar-mobile" id="topbarMobile"></header>
+            <main class="main" style="max-width:1100px;">
+                <h1>Mapa de reciclaje en Escobedo</h1>
+                <p class="subtitle">Puntos de acopio reales. Filtra por material y toca un punto para centrarlo en el
+                    mapa.</p>
+
+                <div class="material-tabs" id="materialTabs"></div>
+                <div id="puntosGrid" class="reciclaje-grid"></div>
+                <div id="mapaWrap" class="map-wrap-frame"></div>
+            </main>
+        </div>
+    </div>
+
+    <script src="clasificador.js"></script>
+    <script src="layout.js"></script>
+    <script src="app.js"></script>
+    <script>
+        ecoappInitShell("mapa");
+
+        // Materiales actualizados (IDs deben coincidir con clasificador.js)
+        const MATERIALES = [
+            { id: "plastico", nombre: "Plástico" },
+            { id: "carton", nombre: "Cartón" },
+            { id: "metal", nombre: "Metal" },
+            { id: "vidrio", nombre: "Vidrio" },
+            { id: "organico", nombre: "Orgánico" },
+            { id: "tetrapak", nombre: "Tetra Pak" },
+            { id: "pila", nombre: "Pila / Batería" }
+        ];
+
+        let materialActivo = "plastico";
+
+        function renderTabs() {
+            const tabs = document.getElementById("materialTabs");
+            tabs.innerHTML = "";
+            MATERIALES.forEach(m => {
+                const b = document.createElement("button");
+                b.type = "button";
+                b.className = "mat-tab" + (m.id === materialActivo ? " active" : "");
+                b.textContent = m.nombre;
+                b.onclick = () => { materialActivo = m.id; renderTabs(); renderPuntos(); };
+                tabs.appendChild(b);
+            });
+        }
+
+        function renderPuntos() {
+            const puntos = ECOAPP_PUNTOS[materialActivo] || [];
+            const grid = document.getElementById("puntosGrid");
+            grid.innerHTML = "";
+
+            if (!puntos.length) {
+                grid.innerHTML = "<div class='empty-state-mini'>No hay puntos registrados para este material todavía.</div>";
+                document.getElementById("mapaWrap").innerHTML = "";
+                return;
+            }
+
+            puntos.forEach((p, idx) => {
+                const card = document.createElement("div");
+                card.className = "punto-card" + (idx === 0 ? " place-active" : "");
+                card.dataset.idx = idx;
+                card.innerHTML = `
+          <h3>${ecoappEscapeHtml(p.nombre)}</h3>
+          <div class="dir">${ecoappEscapeHtml(p.direccion)}</div>
+          <div class="meta">${ecoappEscapeHtml(p.horario)}</div>
+          ${p.telefono ? `<div class="meta">Tel: ${ecoappEscapeHtml(p.telefono)}</div>` : ""}
+          <div class="materiales">Acepta: ${ecoappEscapeHtml(p.materiales)}</div>
+        `;
+                card.onclick = () => {
+                    grid.querySelectorAll(".punto-card").forEach(x => x.classList.remove("place-active"));
+                    card.classList.add("place-active");
+                    actualizarMapa(p);
+                };
+                grid.appendChild(card);
+            });
+
+            actualizarMapa(puntos[0]);
+        }
+
+        function actualizarMapa(punto) {
+            const wrap = document.getElementById("mapaWrap");
+            const query = encodeURIComponent(punto.nombre + " Escobedo Nuevo León");
+            const url = `https://maps.google.com/maps?q=${query}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+
+            let iframe = wrap.querySelector("iframe");
+            if (!iframe) {
+                iframe = document.createElement("iframe");
+                iframe.loading = "lazy";
+                iframe.referrerPolicy = "no-referrer-when-downgrade";
+                iframe.allowFullscreen = true;
+                wrap.appendChild(iframe);
+            }
+            iframe.src = url;
+
+            let caption = wrap.querySelector(".map-caption");
+            if (!caption) {
+                caption = document.createElement("div");
+                caption.className = "map-caption";
+                wrap.appendChild(caption);
+            }
+            caption.textContent = "📍 " + punto.nombre + " — " + punto.direccion;
+        }
+
+        renderTabs();
+        renderPuntos();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+/* ==========================================================
+   SENIX v2.0 — 3D Extra CSS
+   Estilos para secciones showcase
+   ========================================================== */
+
+/* Hero neural overlay */
+.senix-hero-neural {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Showcase grid */
+.senix-showcase {
+    position: relative;
+}
+
+.senix-showcase-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.senix-showcase-card {
+    position: relative;
+    border-radius: var(--senix-r-xl);
+    overflow: hidden;
+    background: linear-gradient(180deg,
+        rgba(10, 24, 48, 0.5) 0%,
+        rgba(5, 15, 30, 0.9) 100%
+    );
+    border: 1px solid var(--senix-border);
+    transition: var(--senix-t);
+    aspect-ratio: 4 / 3;
+    display: flex;
+    flex-direction: column;
+}
+
+.senix-showcase-card:hover {
+    border-color: var(--senix-blue-500);
+    box-shadow:
+        0 30px 80px rgba(0, 168, 255, 0.25),
+        0 0 60px rgba(0, 168, 255, 0.1);
+    transform: translateY(-6px);
+}
+
+.senix-showcase-3d {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.senix-showcase-info {
+    padding: 24px;
+    background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(5, 15, 30, 0.95) 100%
+    );
+    position: relative;
+    z-index: 2;
+}
+
+.senix-showcase-info h3 {
+    font-family: var(--senix-font-display);
+    font-size: 1.15rem;
+    color: var(--senix-blue-400);
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+}
+
+.senix-showcase-info p {
+    color: var(--senix-text-2);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Stats con fondo */
+.senix-stats {
+    position: relative;
+    overflow: hidden;
+}
+
+.senix-stats-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Showcase 2 - Split con 3D grande */
+.senix-showcase-2 {
+    position: relative;
+}
+
+.senix-showcase-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.senix-showcase-3d-large {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--senix-r-xl);
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%,
+        rgba(0, 168, 255, 0.08) 0%,
+        transparent 70%
+    );
+    border: 1px solid var(--senix-border);
+    box-shadow:
+        0 30px 80px rgba(0, 168, 255, 0.15),
+        inset 0 0 60px rgba(0, 168, 255, 0.05);
+}
+
+.senix-showcase-text {
+    position: relative;
+}
+
+.senix-showcase-text .senix-section-title {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
+    .senix-showcase-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .senix-showcase-split {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .senix-showcase-3d-large {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .senix-showcase-text .senix-section-title {
+        text-align: center;
+    }
+    
+    .senix-showcase-text .senix-section-tag {
+        display: block;
+        text-align: center;
+    }
+    
+    .senix-showcase-text .senix-section-subtitle {
+        text-align: center !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .senix-showcase-card {
+        aspect-ratio: 3 / 4;
+    }
+    
+    .senix-showcase-info {
+        padding: 20px 16px;
+    }
+    
+    .senix-showcase-3d-large {
+        max-width: 100%;
+    }
+}
+
+/* Data scene container base */
+[data-3d-scene] {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: block;
+}
+
+[data-3d-scene] canvas {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    outline: none;
+}

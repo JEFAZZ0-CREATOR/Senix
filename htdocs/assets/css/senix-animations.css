@@ -1,0 +1,1265 @@
+/* ==========================================================
+   SENIX v2.0 — RESPONSIVE
+   Media queries optimizadas mobile-first
+   ========================================================== */
+
+/* ==========================================================
+   1. GRANDES PANTALLAS (≥1400px)
+   ========================================================== */
+@media (min-width: 1400px) {
+    .senix-container {
+        padding-left: var(--senix-sp-8);
+        padding-right: var(--senix-sp-8);
+    }
+    
+    .senix-features-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ==========================================================
+   2. LAPTOPS (1024px - 1399px)
+   ========================================================== */
+@media (max-width: 1399px) {
+    .senix-features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    .senix-demo-layout {
+        gap: 50px;
+        padding: 80px 40px;
+    }
+}
+
+/* ==========================================================
+   3. TABLETS HORIZONTALES (900px - 1023px)
+   ========================================================== */
+@media (max-width: 1023px) {
+    /* Container */
+    .senix-container {
+        padding-left: var(--senix-sp-5);
+        padding-right: var(--senix-sp-5);
+    }
+    
+    /* Navbar - ocultar links, mostrar toggle */
+    .senix-nav {
+        padding: 10px 18px;
+    }
+    
+    .senix-nav-links {
+        display: none;
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(5, 15, 30, 0.98);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: 1px solid var(--senix-border);
+        border-radius: var(--senix-r-lg);
+        padding: 16px;
+        gap: 4px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    
+    .senix-nav.is-open .senix-nav-links {
+        display: flex;
+        animation: senixFadeInDown 0.3s ease;
+    }
+    
+    .senix-nav-link {
+        width: 100%;
+        padding: 14px 20px;
+        text-align: left;
+        border-radius: var(--senix-r);
+        font-size: 0.85rem;
+    }
+    
+    .senix-nav-toggle {
+        display: flex;
+    }
+    
+    .senix-nav-actions .senix-btn-ghost {
+        display: none;
+    }
+    
+    /* Hero */
+    .senix-hero {
+        padding: 110px 20px 60px;
+    }
+    
+    .senix-hero-stats {
+        gap: 20px;
+        padding-top: 30px;
+    }
+    
+    /* Split */
+    .senix-split {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .senix-split-reverse {
+        direction: ltr;
+    }
+    
+    /* Demo */
+    .senix-demo-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 60px 30px;
+    }
+    
+    .senix-demo-visual {
+        max-width: 500px;
+        margin: 0 auto;
+        aspect-ratio: 4 / 3;
+    }
+    
+    .senix-demo-content .senix-section-head {
+        text-align: center;
+    }
+    
+    .senix-demo-content .senix-section-subtitle {
+        margin: 0 auto;
+    }
+    
+    /* Grids */
+    .senix-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .senix-grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Footer */
+    .senix-footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+    
+    .senix-footer-brand {
+        grid-column: 1 / -1;
+    }
+    
+    /* App layout */
+    .senix-app-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .senix-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+        z-index: var(--senix-z-overlay);
+    }
+    
+    .senix-sidebar.is-open {
+        transform: translateX(0);
+    }
+    
+    .senix-main-content {
+        padding: 30px 20px;
+    }
+    
+    /* Sections */
+    .senix-section {
+        padding-top: var(--senix-sp-16);
+        padding-bottom: var(--senix-sp-16);
+    }
+    
+    .senix-section-lg {
+        padding-top: var(--senix-sp-20);
+        padding-bottom: var(--senix-sp-20);
+    }
+    
+    .senix-section-head {
+        margin-bottom: 50px;
+    }
+}
+
+/* ==========================================================
+   4. TABLETS VERTICALES (768px - 899px)
+   ========================================================== */
+@media (max-width: 899px) {
+    /* Tipografía */
+    h1 { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+    h2 { font-size: clamp(1.5rem, 5vw, 2rem); }
+    h3 { font-size: clamp(1.1rem, 3vw, 1.4rem); }
+    
+    /* Botones */
+    .senix-btn-lg { padding: 15px 32px; font-size: 0.85rem; }
+    .senix-btn-xl { padding: 17px 40px; font-size: 0.9rem; }
+    .senix-btn-2xl { padding: 20px 48px; font-size: 0.95rem; }
+    
+    /* Section */
+    .senix-section {
+        padding-top: var(--senix-sp-12);
+        padding-bottom: var(--senix-sp-12);
+    }
+    
+    .senix-section-head {
+        margin-bottom: 40px;
+    }
+    
+    .senix-section-title {
+        letter-spacing: 2px;
+    }
+    
+    /* Hero */
+    .senix-hero-title {
+        letter-spacing: 2px;
+    }
+    
+    .senix-hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Grid */
+    .senix-grid-2,
+    .senix-grid-3,
+    .senix-grid-4 {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Bento */
+    .senix-bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: auto;
+    }
+    
+    .senix-bento-item.large,
+    .senix-bento-item.wide {
+        grid-column: span 2;
+    }
+    
+    /* Stats */
+    .senix-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    /* Tech */
+    .senix-tech-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ==========================================================
+   5. MÓVILES GRANDES (600px - 767px)
+   ========================================================== */
+@media (max-width: 767px) {
+    /* Container */
+    .senix-container {
+        padding-left: var(--senix-sp-4);
+        padding-right: var(--senix-sp-4);
+    }
+    
+    /* Tipografía */
+    body {
+        font-size: 15px;
+    }
+    
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.45rem; }
+    h3 { font-size: 1.15rem; }
+    
+    /* Navbar */
+    .senix-nav {
+        padding: 10px 14px;
+        top: 10px;
+        width: calc(100% - 20px);
+    }
+    
+    .senix-logo-svg {
+        height: 32px;
+    }
+    
+    .senix-nav-link {
+        font-size: 0.8rem;
+        padding: 12px 18px;
+    }
+    
+    .senix-nav-actions .senix-btn {
+        padding: 8px 16px;
+        font-size: 0.68rem;
+    }
+    
+    /* Hero */
+    .senix-hero {
+        padding: 100px 16px 50px;
+        min-height: auto;
+    }
+    
+    .senix-hero-title {
+        letter-spacing: 1.5px;
+        line-height: 1.05;
+    }
+    
+    .senix-hero-badge {
+        font-size: 0.62rem;
+        padding: 6px 14px;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+    }
+    
+    .senix-badge-text {
+        font-size: 0.65rem;
+    }
+    
+    .senix-hero-subtitle {
+        font-size: 0.92rem;
+        margin-bottom: 30px;
+    }
+    
+    .senix-hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        margin-bottom: 40px;
+    }
+    
+    .senix-hero-actions .senix-btn {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .senix-hero-stats {
+        gap: 14px;
+        padding-top: 25px;
+        max-width: 100%;
+    }
+    
+    .senix-stat-value {
+        font-size: 1.5rem;
+    }
+    
+    .senix-stat-label {
+        font-size: 0.6rem;
+        letter-spacing: 1.5px;
+    }
+    
+    /* Scroll cue */
+    .senix-scroll-cue {
+        display: none;
+    }
+    
+    /* Sections */
+    .senix-section {
+        padding-top: var(--senix-sp-10);
+        padding-bottom: var(--senix-sp-10);
+    }
+    
+    .senix-section-head {
+        margin-bottom: 35px;
+    }
+    
+    .senix-section-tag {
+        font-size: 0.62rem;
+        padding: 5px 14px;
+        letter-spacing: 3px;
+        margin-bottom: 16px;
+    }
+    
+    .senix-section-title {
+        letter-spacing: 1.5px;
+        margin-bottom: 14px;
+    }
+    
+    .senix-section-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    /* Feature cards */
+    .senix-features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .senix-feature-card {
+        min-height: 320px;
+        padding: 28px 22px;
+    }
+    
+    .senix-feature-icon {
+        width: 54px;
+        height: 54px;
+        margin-bottom: 18px;
+    }
+    
+    .senix-feature-icon svg {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .senix-feature-title {
+        font-size: 1.05rem;
+    }
+    
+    .senix-feature-desc {
+        font-size: 0.88rem;
+    }
+    
+    /* Demo */
+    .senix-demo-layout {
+        padding: 40px 20px;
+        border-radius: var(--senix-r-xl);
+    }
+    
+    .senix-demo-features {
+        margin-top: 30px;
+        gap: 14px;
+    }
+    
+    .senix-demo-feature {
+        padding: 16px 18px;
+    }
+    
+    .senix-demo-feature-icon {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .senix-demo-feature-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .senix-demo-feature-text h4 {
+        font-size: 0.88rem;
+    }
+    
+    .senix-demo-feature-text p {
+        font-size: 0.8rem;
+    }
+    
+    /* Stats */
+    .senix-stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+    
+    .senix-stat-card {
+        padding: 28px 16px;
+    }
+    
+    .senix-stat-icon {
+        width: 54px;
+        height: 54px;
+        margin-bottom: 14px;
+    }
+    
+    .senix-stat-icon svg {
+        width: 26px;
+        height: 26px;
+    }
+    
+    .senix-stat-big {
+        font-size: 1.8rem;
+    }
+    
+    .senix-stat-desc {
+        font-size: 0.65rem;
+        letter-spacing: 1.5px;
+    }
+    
+    /* Tech */
+    .senix-tech-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .senix-tech-card {
+        padding: 22px 14px;
+    }
+    
+    .senix-tech-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 12px;
+    }
+    
+    .senix-tech-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .senix-tech-name {
+        font-size: 0.82rem;
+        letter-spacing: 1px;
+    }
+    
+    .senix-tech-desc {
+        font-size: 0.68rem;
+    }
+    
+    /* CTA */
+    .senix-cta {
+        padding: 70px 16px;
+    }
+    
+    .senix-cta-content {
+        max-width: 100%;
+    }
+    
+    .senix-cta h2 {
+        font-size: 1.6rem;
+        letter-spacing: 2px;
+    }
+    
+    .senix-cta p {
+        font-size: 0.92rem;
+    }
+    
+    /* Footer */
+    .senix-footer {
+        padding: 40px 16px 20px;
+    }
+    
+    .senix-footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
+    
+    .senix-footer-brand {
+        grid-column: 1;
+    }
+    
+    .senix-footer-brand p {
+        margin: 0 auto;
+    }
+    
+    .senix-footer-links {
+        text-align: center;
+    }
+    
+    .senix-footer-bottom {
+        font-size: 0.7rem;
+        padding-top: 20px;
+        margin-top: 30px;
+    }
+    
+    /* Buttons */
+    .senix-btn {
+        letter-spacing: 2px;
+    }
+    
+    /* Loader */
+    .senix-loader-logo {
+        letter-spacing: 6px;
+    }
+    
+    .senix-loader-ring {
+        width: 70px;
+        height: 70px;
+    }
+    
+    /* Cards padding */
+    .senix-card {
+        padding: 22px 18px;
+    }
+    
+    /* Modal */
+    .senix-modal {
+        padding: 30px 22px;
+    }
+    
+    .senix-modal-title {
+        font-size: 1.2rem;
+    }
+    
+    /* Toast */
+    .senix-toast-container {
+        left: 15px;
+        right: 15px;
+        max-width: none;
+    }
+    
+    .senix-toast {
+        padding: 14px 16px;
+        min-width: auto;
+    }
+    
+    /* Tabs */
+    .senix-tabs {
+        padding: 4px;
+        gap: 2px;
+    }
+    
+    .senix-tab {
+        padding: 8px 16px;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+    }
+    
+    /* Deshabilitar tilt en móvil */
+    .senix-tilt {
+        transform: none !important;
+    }
+    
+    .senix-tilt-content {
+        transform: none !important;
+    }
+    
+    /* Deshabilitar hover 3D en cards */
+    .senix-feature-card:hover,
+    .senix-stat-card:hover,
+    .senix-tech-card:hover,
+    .senix-card:hover {
+        transform: translateY(-4px);
+    }
+    
+    /* Reducir filtros en iframes */
+    .senix-feature-bg iframe,
+    .senix-demo-spline-wrap iframe,
+    .senix-cta-3d iframe,
+    .senix-hero-spline iframe {
+        filter: hue-rotate(180deg) saturate(1.15);
+    }
+    
+    /* Reducir blobs */
+    .senix-blob-1,
+    .senix-blob-2,
+    .senix-blob-3 {
+        filter: blur(60px);
+        opacity: 0.25;
+    }
+    
+    .senix-blob-1 { width: 400px; height: 400px; }
+    .senix-blob-2 { width: 350px; height: 350px; }
+    .senix-blob-3 { width: 300px; height: 300px; }
+}
+
+/* ==========================================================
+   6. MÓVILES MEDIANOS (480px - 599px)
+   ========================================================== */
+@media (max-width: 599px) {
+    /* Tipografía */
+    h1 { font-size: 1.55rem; letter-spacing: 1px; }
+    h2 { font-size: 1.3rem; letter-spacing: 1px; }
+    h3 { font-size: 1.05rem; }
+    
+    /* Navbar */
+    .senix-nav {
+        padding: 8px 12px;
+        top: 8px;
+    }
+    
+    .senix-logo-svg {
+        height: 28px;
+    }
+    
+    .senix-nav-actions .senix-btn {
+        padding: 7px 12px;
+        font-size: 0.62rem;
+        letter-spacing: 1px;
+    }
+    
+    .senix-nav-toggle {
+        width: 34px;
+        height: 34px;
+    }
+    
+    .senix-nav-toggle span {
+        width: 16px;
+    }
+    
+    /* Hero */
+    .senix-hero {
+        padding: 90px 14px 40px;
+    }
+    
+    .senix-hero-title {
+        font-size: 1.85rem;
+        letter-spacing: 1px;
+    }
+    
+    .senix-hero-badge {
+        font-size: 0.58rem;
+        padding: 5px 12px;
+        letter-spacing: 1.5px;
+    }
+    
+    .senix-badge-text {
+        font-size: 0.58rem;
+    }
+    
+    .senix-badge-dot {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .senix-hero-subtitle {
+        font-size: 0.85rem;
+        line-height: 1.55;
+    }
+    
+    .senix-hero-stats {
+        gap: 10px;
+    }
+    
+    .senix-stat-value {
+        font-size: 1.3rem;
+    }
+    
+    .senix-stat-label {
+        font-size: 0.55rem;
+        letter-spacing: 1px;
+    }
+    
+    /* Secciones */
+    .senix-section {
+        padding-top: var(--senix-sp-8);
+        padding-bottom: var(--senix-sp-8);
+    }
+    
+    .senix-section-head {
+        margin-bottom: 28px;
+    }
+    
+    .senix-section-tag {
+        font-size: 0.55rem;
+        padding: 4px 12px;
+        letter-spacing: 2.5px;
+        margin-bottom: 12px;
+    }
+    
+    /* Feature cards */
+    .senix-feature-card {
+        min-height: 290px;
+        padding: 24px 18px;
+        border-radius: var(--senix-r-lg);
+    }
+    
+    .senix-feature-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--senix-r-md);
+    }
+    
+    .senix-feature-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    /* Stats */
+    .senix-stat-card {
+        padding: 24px 12px;
+        border-radius: var(--senix-r-lg);
+    }
+    
+    .senix-stat-icon {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .senix-stat-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .senix-stat-big {
+        font-size: 1.55rem;
+    }
+    
+    /* Tech grid */
+    .senix-tech-grid {
+        gap: 10px;
+    }
+    
+    .senix-tech-card {
+        padding: 18px 10px;
+    }
+    
+    .senix-tech-icon {
+        width: 42px;
+        height: 42px;
+        margin-bottom: 10px;
+    }
+    
+    .senix-tech-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .senix-tech-name {
+        font-size: 0.75rem;
+    }
+    
+    .senix-tech-desc {
+        font-size: 0.62rem;
+    }
+    
+    /* Buttons */
+    .senix-btn {
+        padding: 12px 22px;
+        font-size: 0.72rem;
+        letter-spacing: 1.5px;
+    }
+    
+    .senix-btn-sm {
+        padding: 8px 16px;
+        font-size: 0.65rem;
+    }
+    
+    .senix-btn-lg {
+        padding: 13px 28px;
+        font-size: 0.78rem;
+    }
+    
+    .senix-btn-xl {
+        padding: 15px 32px;
+        font-size: 0.82rem;
+    }
+    
+    /* Loader */
+    .senix-loader-logo {
+        font-size: 2rem;
+        letter-spacing: 5px;
+        margin-bottom: 30px;
+    }
+    
+    .senix-loader-ring {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .senix-status-text {
+        font-size: 0.65rem;
+        letter-spacing: 3px;
+    }
+    
+    /* Forms */
+    .senix-form-input,
+    .senix-form-textarea,
+    .senix-form-select {
+        padding: 12px 16px;
+        font-size: 0.92rem;
+    }
+    
+    .senix-input-wrapper .senix-form-input {
+        padding-left: 44px;
+    }
+    
+    .senix-input-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* Modal */
+    .senix-modal {
+        padding: 24px 18px;
+        border-radius: var(--senix-r-lg);
+    }
+    
+    .senix-modal-title {
+        font-size: 1.05rem;
+    }
+    
+    .senix-modal-close {
+        width: 32px;
+        height: 32px;
+        font-size: 1.5rem;
+    }
+    
+    /* Dropdown */
+    .senix-dropdown-menu {
+        min-width: 180px;
+    }
+    
+    .senix-dropdown-item {
+        padding: 8px 12px;
+        font-size: 0.82rem;
+    }
+}
+
+/* ==========================================================
+   7. MÓVILES PEQUEÑOS (≤479px)
+   ========================================================== */
+@media (max-width: 479px) {
+    /* Tipografía */
+    body { font-size: 14px; }
+    
+    h1 { font-size: 1.4rem; }
+    h2 { font-size: 1.2rem; }
+    h3 { font-size: 1rem; }
+    
+    /* Container */
+    .senix-container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    
+    /* Navbar */
+    .senix-nav {
+        padding: 6px 10px;
+    }
+    
+    .senix-logo-svg {
+        height: 24px;
+    }
+    
+    .senix-nav-actions .senix-btn {
+        padding: 6px 10px;
+        font-size: 0.58rem;
+        letter-spacing: 0.8px;
+    }
+    
+    .senix-nav-toggle {
+        width: 30px;
+        height: 30px;
+    }
+    
+    /* Hero */
+    .senix-hero {
+        padding: 80px 12px 30px;
+    }
+    
+    .senix-hero-title {
+        font-size: 1.55rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .senix-hero-badge {
+        font-size: 0.52rem;
+        padding: 4px 10px;
+        letter-spacing: 1.2px;
+        margin-bottom: 14px;
+    }
+    
+    .senix-badge-text {
+        font-size: 0.52rem;
+    }
+    
+    .senix-hero-subtitle {
+        font-size: 0.78rem;
+        margin-bottom: 22px;
+    }
+    
+    .senix-hero-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding-top: 18px;
+    }
+    
+    .senix-stat-value {
+        font-size: 1.15rem;
+    }
+    
+    .senix-stat-label {
+        font-size: 0.5rem;
+        letter-spacing: 0.8px;
+    }
+    
+    /* Feature cards */
+    .senix-feature-card {
+        min-height: 260px;
+        padding: 20px 16px;
+    }
+    
+    /* Demo */
+    .senix-demo-layout {
+        padding: 30px 14px;
+        border-radius: var(--senix-r-lg);
+    }
+    
+    /* Buttons */
+    .senix-btn {
+        padding: 10px 18px;
+        font-size: 0.68rem;
+    }
+    
+    /* Sections */
+    .senix-section {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    
+    /* Reduce partículas */
+    .senix-particles-canvas {
+        opacity: 0.5;
+    }
+    
+    /* Reduce blobs */
+    .senix-blob-1 { width: 250px; height: 250px; }
+    .senix-blob-2 { width: 220px; height: 220px; }
+    .senix-blob-3 { display: none; }
+    
+    /* Grid */
+    .senix-bento-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .senix-bento-item.large,
+    .senix-bento-item.wide,
+    .senix-bento-item.tall {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+    
+    /* Footer */
+    .senix-footer {
+        padding: 30px 12px 20px;
+    }
+}
+
+/* ==========================================================
+   8. ORIENTACIÓN LANDSCAPE
+   ========================================================== */
+@media (max-height: 500px) and (orientation: landscape) {
+    .senix-hero {
+        min-height: auto;
+        padding: 90px 20px 50px;
+    }
+    
+    .senix-hero-title {
+        font-size: 2rem;
+    }
+    
+    .senix-hero-stats {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding-top: 20px;
+    }
+    
+    .senix-scroll-cue {
+        display: none;
+    }
+}
+
+/* ==========================================================
+   9. RETINA / HIGH DPI
+   ========================================================== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Ajustes finos para pantallas de alta densidad */
+    .senix-logo-svg {
+        filter: drop-shadow(0 0 12px rgba(0, 168, 255, 0.5)) saturate(1.1);
+    }
+}
+
+/* ==========================================================
+   10. DARK MODE PREFERENCE (redundante pero útil)
+   ========================================================== */
+@media (prefers-color-scheme: light) {
+    /* SENIX siempre es dark, pero por si acaso */
+    body {
+        background: var(--senix-bg);
+        color: var(--senix-text);
+    }
+}
+
+/* ==========================================================
+   11. HOVER: NONE (touch devices)
+   ========================================================== */
+@media (hover: none) {
+    /* Desactivar hovers complejos */
+    .senix-feature-card:hover,
+    .senix-card:hover,
+    .senix-stat-card:hover,
+    .senix-tech-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .senix-feature-card:hover::before,
+    .senix-card:hover::before {
+        opacity: 0;
+    }
+    
+    .senix-btn:hover {
+        transform: none;
+    }
+    
+    .senix-btn:hover::before {
+        transform: translateX(-101%);
+    }
+    
+    /* Activar en su lugar :active */
+    .senix-btn:active {
+        transform: scale(0.97);
+    }
+    
+    .senix-feature-card:active,
+    .senix-card:active,
+    .senix-stat-card:active,
+    .senix-tech-card:active {
+        border-color: var(--senix-blue-500);
+        background: rgba(0, 168, 255, 0.08);
+    }
+}
+
+/* ==========================================================
+   12. TOUCH DEVICE OPTIMIZATIONS
+   ========================================================== */
+@media (hover: none) and (pointer: coarse) {
+    /* Áreas de toque más grandes */
+    .senix-btn {
+        min-height: 44px;
+    }
+    
+    .senix-nav-link {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .senix-dropdown-item {
+        min-height: 44px;
+    }
+    
+    .senix-tab {
+        min-height: 40px;
+    }
+    
+    /* Deshabilitar parallax de mouse */
+    .senix-parallax {
+        transform: none !important;
+    }
+}
+
+/* ==========================================================
+   13. PRINT
+   ========================================================== */
+@media print {
+    body {
+        background: white;
+        color: black;
+        font-size: 12pt;
+    }
+    
+    .senix-nav,
+    .senix-particles-canvas,
+    .senix-ambient,
+    .senix-grid-bg,
+    .senix-scroll-progress,
+    .senix-cursor,
+    .senix-cursor-ring,
+    .senix-mouse-glow,
+    .senix-loader {
+        display: none !important;
+    }
+    
+    .senix-reveal,
+    .senix-reveal-left,
+    .senix-reveal-right,
+    .senix-reveal-scale,
+    .senix-reveal-blur {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+    }
+    
+    .senix-section {
+        padding: 20px 0;
+        page-break-inside: avoid;
+    }
+    
+    a {
+        color: black;
+        text-decoration: underline;
+    }
+    
+    h1, h2, h3, h4 {
+        color: black;
+        page-break-after: avoid;
+    }
+}
+
+/* ==========================================================
+   14. FALLBACK PARA MÓVIL ANTIGUO (detección por UA)
+   ========================================================== */
+@media (max-width: 900px) {
+    /* Optimizaciones agresivas para rendimiento */
+    .senix-feature-bg iframe,
+    .senix-demo-spline-wrap iframe,
+    .senix-cta-3d iframe {
+        filter: none;
+        opacity: 0.7;
+    }
+    
+    /* Si es un dispositivo de gama baja, deshabilitar 3D de fondo */
+    .senix-bento-item .senix-feature-bg {
+        display: none;
+    }
+    
+    /* Simplificar el hero */
+    .senix-hero-spline {
+        opacity: 0.85;
+    }
+    
+    /* Reducir sombras y blur para mejor rendimiento */
+    .senix-nav {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+}
+
+/* ==========================================================
+   15. SOPORTE PARA PANTALLAS DOBLABLES
+   ========================================================== */
+@media (max-width: 300px) {
+    /* Pantallas ultra pequeñas */
+    body { font-size: 13px; }
+    
+    .senix-container {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    
+    .senix-hero-title {
+        font-size: 1.25rem;
+    }
+    
+    .senix-nav {
+        padding: 6px 8px;
+    }
+    
+    .senix-logo-svg {
+        height: 22px;
+    }
+}
+
+/* ==========================================================
+   16. AJUSTES PARA iPhone X / NOTCH
+   ========================================================== */
+@supports (padding: max(0px)) {
+    .senix-nav {
+        top: max(16px, env(safe-area-inset-top));
+        padding-left: max(22px, env(safe-area-inset-left));
+        padding-right: max(22px, env(safe-area-inset-right));
+    }
+    
+    .senix-cta {
+        padding-bottom: max(130px, calc(130px + env(safe-area-inset-bottom)));
+    }
+    
+    .senix-footer {
+        padding-bottom: max(30px, env(safe-area-inset-bottom));
+    }
+}
+
+/* ==========================================================
+   17. CONTRASTE ALTO (accesibilidad)
+   ========================================================== */
+@media (prefers-contrast: high) {
+    :root {
+        --senix-border:        rgba(0, 168, 255, 0.5);
+        --senix-border-med:    rgba(0, 168, 255, 0.7);
+        --senix-border-hover:  rgba(0, 168, 255, 0.9);
+        --senix-text-2:        #b8d0e0;
+        --senix-text-dim:      #94aab8;
+    }
+    
+    .senix-btn {
+        border-width: 3px;
+    }
+    
+    .senix-feature-card,
+    .senix-card,
+    .senix-stat-card,
+    .senix-tech-card {
+        border-width: 2px;
+    }
+}

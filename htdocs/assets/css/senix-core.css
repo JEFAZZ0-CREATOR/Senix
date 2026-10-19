@@ -1,0 +1,1103 @@
+/* ==========================================================
+   SENIX v2.0 — CORE
+   Variables · Reset · Tipografía · Utilidades
+   Paleta: AZUL · BLANCO · CYAN (cero morado)
+   ========================================================== */
+
+/* ==========================================================
+   1. VARIABLES GLOBALES
+   ========================================================== */
+:root {
+    /* =============== AZULES =============== */
+    --senix-blue-50:   #e6f7ff;
+    --senix-blue-100:  #b3e8ff;
+    --senix-blue-150:  #99e0ff;
+    --senix-blue-200:  #80d9ff;
+    --senix-blue-250:  #66d1ff;
+    --senix-blue-300:  #4dc9ff;
+    --senix-blue-350:  #33c0ff;
+    --senix-blue-400:  #1ab8ff;
+    --senix-blue-450:  #0db0ff;
+    --senix-blue-500:  #00a8ff;
+    --senix-blue-550:  #0095e6;
+    --senix-blue-600:  #007bff;
+    --senix-blue-650:  #006de6;
+    --senix-blue-700:  #0060cc;
+    --senix-blue-750:  #0052b3;
+    --senix-blue-800:  #004399;
+    --senix-blue-850:  #003380;
+    --senix-blue-900:  #002266;
+    --senix-blue-950:  #001133;
+    
+    /* =============== CYAN NEÓN =============== */
+    --senix-cyan-100:  #ccfff5;
+    --senix-cyan-200:  #99ffeb;
+    --senix-cyan-300:  #66ffe0;
+    --senix-cyan-400:  #33ffdd;
+    --senix-cyan-500:  #00ffcc;
+    --senix-cyan-600:  #00d9a8;
+    --senix-cyan-700:  #00b38a;
+    
+    /* =============== BLANCOS Y GRISES =============== */
+    --senix-white:      #ffffff;
+    --senix-off-white:  #f0f8ff;
+    --senix-snow:       #e8f4ff;
+    --senix-gray-50:    #e0ecf5;
+    --senix-gray-100:   #c8d8e6;
+    --senix-gray-150:   #b0c5d6;
+    --senix-gray-200:   #8ba3b8;
+    --senix-gray-250:   #7089a0;
+    --senix-gray-300:   #5a7088;
+    --senix-gray-350:   #4a5d72;
+    --senix-gray-400:   #3a4a5c;
+    --senix-gray-450:   #2d3a4a;
+    --senix-gray-500:   #1f2938;
+    
+    /* =============== FONDOS =============== */
+    --senix-bg:         #030710;
+    --senix-bg-1:       #04101e;
+    --senix-bg-2:       #051525;
+    --senix-bg-3:       #0a1830;
+    --senix-bg-4:       #0f1f3d;
+    --senix-bg-panel:   rgba(10, 24, 48, 0.7);
+    --senix-bg-card:    rgba(10, 24, 48, 0.55);
+    --senix-bg-glass:   rgba(10, 24, 48, 0.35);
+    --senix-bg-hover:   rgba(0, 168, 255, 0.08);
+    --senix-bg-active:  rgba(0, 168, 255, 0.15);
+    
+    /* =============== TEXTOS =============== */
+    --senix-text:        #f0f8ff;
+    --senix-text-1:      #d8e8f5;
+    --senix-text-2:      #8ba3b8;
+    --senix-text-dim:    #5a7088;
+    --senix-text-muted:  #3a4a5c;
+    --senix-text-ghost:  #2d3a4a;
+    
+    /* =============== BORDES =============== */
+    --senix-border-faint:  rgba(0, 168, 255, 0.06);
+    --senix-border-soft:   rgba(0, 168, 255, 0.1);
+    --senix-border:        rgba(0, 168, 255, 0.15);
+    --senix-border-med:    rgba(0, 168, 255, 0.25);
+    --senix-border-hover:  rgba(0, 168, 255, 0.5);
+    --senix-border-strong: rgba(0, 168, 255, 0.8);
+    --senix-border-full:   rgba(0, 168, 255, 1);
+    
+    /* =============== GLOWS =============== */
+    --senix-glow-xs:    0 0 8px rgba(0, 168, 255, 0.25);
+    --senix-glow-sm:    0 0 15px rgba(0, 168, 255, 0.35);
+    --senix-glow:       0 0 25px rgba(0, 168, 255, 0.5);
+    --senix-glow-md:    0 0 40px rgba(0, 168, 255, 0.6);
+    --senix-glow-lg:    0 0 60px rgba(0, 168, 255, 0.7);
+    --senix-glow-xl:    0 0 100px rgba(0, 168, 255, 0.85);
+    --senix-glow-2xl:   0 0 150px rgba(0, 168, 255, 1);
+    
+    --senix-glow-cyan-xs: 0 0 10px rgba(0, 255, 204, 0.3);
+    --senix-glow-cyan:    0 0 30px rgba(0, 255, 204, 0.6);
+    --senix-glow-cyan-lg: 0 0 60px rgba(0, 255, 204, 0.8);
+    
+    --senix-glow-white:   0 0 30px rgba(255, 255, 255, 0.4);
+    --senix-glow-white-lg:0 0 60px rgba(255, 255, 255, 0.7);
+    
+    /* =============== ESTADOS =============== */
+    --senix-success:    #00ff88;
+    --senix-success-bg: rgba(0, 255, 136, 0.1);
+    --senix-warning:    #ffb800;
+    --senix-warning-bg: rgba(255, 184, 0, 0.1);
+    --senix-error:      #ff3860;
+    --senix-error-bg:   rgba(255, 56, 96, 0.1);
+    --senix-info:       #00a8ff;
+    --senix-info-bg:    rgba(0, 168, 255, 0.1);
+    
+    /* =============== RADIOS =============== */
+    --senix-r-xs:   4px;
+    --senix-r-sm:   8px;
+    --senix-r:      12px;
+    --senix-r-md:   16px;
+    --senix-r-lg:   24px;
+    --senix-r-xl:   32px;
+    --senix-r-2xl:  48px;
+    --senix-r-3xl:  64px;
+    --senix-r-full: 9999px;
+    
+    /* =============== TRANSICIONES =============== */
+    --senix-t-instant: all 0.1s linear;
+    --senix-t-fast:    all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --senix-t:         all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --senix-t-med:     all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    --senix-t-slow:    all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    --senix-t-slower:  all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --senix-t-bounce:  all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --senix-t-spring:  all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    /* =============== FUENTES =============== */
+    --senix-font-display:  'Orbitron', 'Arial Black', sans-serif;
+    --senix-font-heading:  'Chakra Petch', 'Arial', sans-serif;
+    --senix-font-body:     'Rajdhani', 'Arial', sans-serif;
+    --senix-font-mono:     'Space Mono', 'Courier New', monospace;
+    
+    /* =============== Z-INDEX =============== */
+    --senix-z-under:      -1;
+    --senix-z-bg:         -2;
+    --senix-z-deep:       -3;
+    --senix-z-base:       1;
+    --senix-z-content:    10;
+    --senix-z-elevated:   50;
+    --senix-z-dropdown:   100;
+    --senix-z-sticky:     500;
+    --senix-z-nav:        1000;
+    --senix-z-overlay:    1500;
+    --senix-z-modal:      2000;
+    --senix-z-flash:      2500;
+    --senix-z-toast:      3000;
+    --senix-z-max:        9999;
+    
+    /* =============== ESPACIADO =============== */
+    --senix-sp-0:  0px;
+    --senix-sp-1:  4px;
+    --senix-sp-2:  8px;
+    --senix-sp-3:  12px;
+    --senix-sp-4:  16px;
+    --senix-sp-5:  20px;
+    --senix-sp-6:  24px;
+    --senix-sp-8:  32px;
+    --senix-sp-10: 40px;
+    --senix-sp-12: 48px;
+    --senix-sp-16: 64px;
+    --senix-sp-20: 80px;
+    --senix-sp-24: 96px;
+    --senix-sp-32: 128px;
+    
+    /* =============== LAYOUT =============== */
+    --senix-container:      1400px;
+    --senix-container-wide: 1600px;
+    --senix-container-narrow: 900px;
+    --senix-nav-height:     72px;
+    
+    /* =============== SOMBRAS =============== */
+    --senix-shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --senix-shadow:    0 10px 30px rgba(0, 0, 0, 0.4);
+    --senix-shadow-md: 0 15px 45px rgba(0, 0, 0, 0.5);
+    --senix-shadow-lg: 0 25px 70px rgba(0, 0, 0, 0.6);
+    --senix-shadow-xl: 0 40px 100px rgba(0, 0, 0, 0.7);
+    
+    /* =============== GRADIENTES =============== */
+    --senix-grad-primary: linear-gradient(135deg, #00a8ff 0%, #007bff 50%, #00ffcc 100%);
+    --senix-grad-blue:    linear-gradient(135deg, #00a8ff 0%, #007bff 100%);
+    --senix-grad-cyan:    linear-gradient(135deg, #00a8ff 0%, #00ffcc 100%);
+    --senix-grad-dark:    linear-gradient(180deg, rgba(10, 24, 48, 0.8) 0%, rgba(3, 7, 16, 0.95) 100%);
+    --senix-grad-glass:   linear-gradient(135deg, rgba(0, 168, 255, 0.08) 0%, rgba(0, 255, 204, 0.04) 100%);
+    --senix-grad-radial:  radial-gradient(circle at 50% 50%, rgba(0, 168, 255, 0.2) 0%, transparent 70%);
+}
+
+/* ==========================================================
+   2. RESET
+   ========================================================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+*:focus {
+    outline: none;
+}
+
+*:focus-visible {
+    outline: 2px solid var(--senix-blue-500);
+    outline-offset: 3px;
+    border-radius: var(--senix-r-xs);
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--senix-nav-height) + 20px);
+    overflow-x: hidden;
+}
+
+html.senix-scroll-locked {
+    overflow: hidden;
+}
+
+body {
+    background: var(--senix-bg);
+    color: var(--senix-text);
+    font-family: var(--senix-font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+}
+
+img, svg, video, canvas, iframe {
+    max-width: 100%;
+    display: block;
+    border: 0;
+}
+
+button, input, textarea, select {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+button {
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+a {
+    color: var(--senix-blue-500);
+    text-decoration: none;
+    transition: var(--senix-t-fast);
+}
+
+a:hover {
+    color: var(--senix-blue-300);
+}
+
+ul, ol, dl {
+    list-style: none;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: var(--senix-border);
+    margin: var(--senix-sp-6) 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* ==========================================================
+   3. SCROLLBAR
+   ========================================================== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--senix-bg-2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--senix-blue-600), var(--senix-blue-800));
+    border-radius: var(--senix-r-full);
+    border: 2px solid var(--senix-bg-2);
+    transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--senix-cyan-500), var(--senix-blue-600));
+}
+
+::selection {
+    background: var(--senix-blue-500);
+    color: var(--senix-white);
+}
+
+::placeholder {
+    color: var(--senix-text-muted);
+    opacity: 0.7;
+}
+
+/* ==========================================================
+   4. TIPOGRAFÍA
+   ========================================================== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--senix-font-display);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    line-height: 1.15;
+    text-transform: uppercase;
+    color: var(--senix-text);
+    margin-bottom: 0.5em;
+    text-wrap: balance;
+    -webkit-text-wrap: balance;
+}
+
+h1 {
+    font-size: clamp(2rem, 5.5vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+h3 {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+h4 {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 700;
+}
+
+h5 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+h6 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+p {
+    margin-bottom: 1em;
+    text-wrap: pretty;
+    -webkit-text-wrap: pretty;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+strong, b {
+    font-weight: 700;
+    color: var(--senix-white);
+}
+
+em, i {
+    font-style: italic;
+}
+
+small {
+    font-size: 0.85em;
+    color: var(--senix-text-dim);
+}
+
+code {
+    font-family: var(--senix-font-mono);
+    font-size: 0.88em;
+    background: var(--senix-bg-3);
+    padding: 2px 8px;
+    border-radius: var(--senix-r-xs);
+    color: var(--senix-cyan-400);
+    border: 1px solid var(--senix-border-soft);
+}
+
+pre {
+    font-family: var(--senix-font-mono);
+    font-size: 0.9em;
+    background: var(--senix-bg-2);
+    padding: var(--senix-sp-5);
+    border-radius: var(--senix-r);
+    overflow-x: auto;
+    border: 1px solid var(--senix-border);
+    color: var(--senix-cyan-400);
+    line-height: 1.6;
+}
+
+blockquote {
+    border-left: 3px solid var(--senix-blue-500);
+    padding-left: var(--senix-sp-5);
+    margin: var(--senix-sp-5) 0;
+    color: var(--senix-text-2);
+    font-style: italic;
+}
+
+/* ==========================================================
+   5. UTILIDADES
+   ========================================================== */
+
+/* ---- Display ---- */
+.senix-hidden    { display: none !important; }
+.senix-visible   { display: block !important; }
+.senix-flex      { display: flex; }
+.senix-grid      { display: grid; }
+.senix-inline    { display: inline-block; }
+.senix-inline-flex { display: inline-flex; }
+
+/* ---- Flex Helpers ---- */
+.senix-flex-center    { display: flex; align-items: center; justify-content: center; }
+.senix-flex-between   { display: flex; align-items: center; justify-content: space-between; }
+.senix-flex-around    { display: flex; align-items: center; justify-content: space-around; }
+.senix-flex-evenly    { display: flex; align-items: center; justify-content: space-evenly; }
+.senix-flex-start     { display: flex; align-items: flex-start; }
+.senix-flex-end       { display: flex; align-items: flex-end; }
+.senix-flex-col       { display: flex; flex-direction: column; }
+.senix-flex-col-center{ display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.senix-flex-wrap      { flex-wrap: wrap; }
+.senix-flex-nowrap    { flex-wrap: nowrap; }
+.senix-flex-1         { flex: 1; }
+.senix-flex-auto      { flex: auto; }
+
+/* ---- Gap ---- */
+.senix-gap-0 { gap: 0; }
+.senix-gap-1 { gap: 4px; }
+.senix-gap-2 { gap: 8px; }
+.senix-gap-3 { gap: 12px; }
+.senix-gap-4 { gap: 16px; }
+.senix-gap-5 { gap: 20px; }
+.senix-gap-6 { gap: 24px; }
+.senix-gap-8 { gap: 32px; }
+.senix-gap-10 { gap: 40px; }
+.senix-gap-12 { gap: 48px; }
+
+/* ---- Margin Top ---- */
+.senix-mt-0  { margin-top: 0 !important; }
+.senix-mt-1  { margin-top: 4px; }
+.senix-mt-2  { margin-top: 8px; }
+.senix-mt-3  { margin-top: 12px; }
+.senix-mt-4  { margin-top: 16px; }
+.senix-mt-5  { margin-top: 20px; }
+.senix-mt-6  { margin-top: 24px; }
+.senix-mt-8  { margin-top: 32px; }
+.senix-mt-10 { margin-top: 40px; }
+.senix-mt-12 { margin-top: 48px; }
+.senix-mt-16 { margin-top: 64px; }
+
+/* ---- Margin Bottom ---- */
+.senix-mb-0  { margin-bottom: 0 !important; }
+.senix-mb-1  { margin-bottom: 4px; }
+.senix-mb-2  { margin-bottom: 8px; }
+.senix-mb-3  { margin-bottom: 12px; }
+.senix-mb-4  { margin-bottom: 16px; }
+.senix-mb-5  { margin-bottom: 20px; }
+.senix-mb-6  { margin-bottom: 24px; }
+.senix-mb-8  { margin-bottom: 32px; }
+.senix-mb-10 { margin-bottom: 40px; }
+.senix-mb-12 { margin-bottom: 48px; }
+.senix-mb-16 { margin-bottom: 64px; }
+
+/* ---- Padding ---- */
+.senix-p-0 { padding: 0 !important; }
+.senix-p-1 { padding: 4px; }
+.senix-p-2 { padding: 8px; }
+.senix-p-3 { padding: 12px; }
+.senix-p-4 { padding: 16px; }
+.senix-p-5 { padding: 20px; }
+.senix-p-6 { padding: 24px; }
+.senix-p-8 { padding: 32px; }
+.senix-p-10 { padding: 40px; }
+.senix-p-12 { padding: 48px; }
+
+/* ---- Width / Height ---- */
+.senix-w-100  { width: 100%; }
+.senix-w-auto { width: auto; }
+.senix-w-full { width: 100%; }
+.senix-h-100  { height: 100%; }
+.senix-h-full { height: 100%; }
+.senix-h-screen { height: 100vh; height: 100svh; }
+.senix-min-h-screen { min-height: 100vh; min-height: 100svh; }
+
+/* ---- Border Radius ---- */
+.senix-r-xs   { border-radius: var(--senix-r-xs); }
+.senix-r-sm   { border-radius: var(--senix-r-sm); }
+.senix-r      { border-radius: var(--senix-r); }
+.senix-r-md   { border-radius: var(--senix-r-md); }
+.senix-r-lg   { border-radius: var(--senix-r-lg); }
+.senix-r-xl   { border-radius: var(--senix-r-xl); }
+.senix-r-2xl  { border-radius: var(--senix-r-2xl); }
+.senix-r-full { border-radius: var(--senix-r-full); }
+
+/* ---- Position ---- */
+.senix-relative { position: relative; }
+.senix-absolute { position: absolute; }
+.senix-fixed    { position: fixed; }
+.senix-sticky   { position: sticky; }
+
+/* ---- Overflow ---- */
+.senix-overflow-hidden { overflow: hidden; }
+.senix-overflow-auto   { overflow: auto; }
+.senix-overflow-x-hidden { overflow-x: hidden; }
+.senix-overflow-y-auto { overflow-y: auto; }
+
+/* ---- Opacity ---- */
+.senix-op-0   { opacity: 0; }
+.senix-op-25  { opacity: 0.25; }
+.senix-op-50  { opacity: 0.5; }
+.senix-op-75  { opacity: 0.75; }
+.senix-op-100 { opacity: 1; }
+
+/* ---- Pointer ---- */
+.senix-pointer-none { pointer-events: none; }
+.senix-pointer-auto { pointer-events: auto; }
+.senix-cursor-pointer { cursor: pointer; }
+
+/* ---- Text alignment ---- */
+.senix-text-center { text-align: center; }
+.senix-text-left   { text-align: left; }
+.senix-text-right  { text-align: right; }
+.senix-text-justify{ text-align: justify; }
+
+/* ---- Text transform ---- */
+.senix-uppercase { text-transform: uppercase; }
+.senix-lowercase { text-transform: lowercase; }
+.senix-capitalize { text-transform: capitalize; }
+
+/* ---- Font weight ---- */
+.senix-fw-300 { font-weight: 300; }
+.senix-fw-400 { font-weight: 400; }
+.senix-fw-500 { font-weight: 500; }
+.senix-fw-600 { font-weight: 600; }
+.senix-fw-700 { font-weight: 700; }
+.senix-fw-900 { font-weight: 900; }
+
+/* ---- Font family ---- */
+.senix-font-display { font-family: var(--senix-font-display); }
+.senix-font-heading { font-family: var(--senix-font-heading); }
+.senix-font-body    { font-family: var(--senix-font-body); }
+.senix-font-mono    { font-family: var(--senix-font-mono); }
+
+/* ---- Text colors ---- */
+.senix-text-primary  { color: var(--senix-blue-500); }
+.senix-text-blue     { color: var(--senix-blue-400); }
+.senix-text-cyan     { color: var(--senix-cyan-500); }
+.senix-text-white    { color: var(--senix-white); }
+.senix-text-off      { color: var(--senix-off-white); }
+.senix-text-dim      { color: var(--senix-text-dim); }
+.senix-text-muted    { color: var(--senix-text-muted); }
+.senix-text-success  { color: var(--senix-success); }
+.senix-text-error    { color: var(--senix-error); }
+.senix-text-warning  { color: var(--senix-warning); }
+.senix-text-info     { color: var(--senix-info); }
+
+/* ---- Backgrounds ---- */
+.senix-bg         { background: var(--senix-bg); }
+.senix-bg-1       { background: var(--senix-bg-1); }
+.senix-bg-2       { background: var(--senix-bg-2); }
+.senix-bg-3       { background: var(--senix-bg-3); }
+.senix-bg-card    { background: var(--senix-bg-card); }
+.senix-bg-glass   { background: var(--senix-bg-glass); }
+.senix-bg-primary { background: var(--senix-blue-500); }
+.senix-bg-cyan    { background: var(--senix-cyan-500); }
+
+/* ---- Gradients ---- */
+.senix-grad-primary { background: var(--senix-grad-primary); }
+.senix-grad-blue    { background: var(--senix-grad-blue); }
+.senix-grad-cyan    { background: var(--senix-grad-cyan); }
+.senix-grad-dark    { background: var(--senix-grad-dark); }
+.senix-grad-glass   { background: var(--senix-grad-glass); }
+
+/* ---- Text gradient ---- */
+.senix-text-grad {
+    background: var(--senix-grad-primary);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: senixGradientFlow 6s ease infinite;
+    display: inline-block;
+}
+
+.senix-text-grad-static {
+    background: var(--senix-grad-blue);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+@keyframes senixGradientFlow {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+}
+
+/* ---- Glow text ---- */
+.senix-glow-blue {
+    text-shadow:
+        0 0 10px rgba(0, 168, 255, 0.6),
+        0 0 30px rgba(0, 168, 255, 0.4),
+        0 0 60px rgba(0, 168, 255, 0.2);
+}
+
+.senix-glow-cyan-text {
+    text-shadow:
+        0 0 10px rgba(0, 255, 204, 0.6),
+        0 0 30px rgba(0, 255, 204, 0.4),
+        0 0 60px rgba(0, 255, 204, 0.2);
+}
+
+.senix-glow-white-text {
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+/* ---- Borders ---- */
+.senix-border     { border: 1px solid var(--senix-border); }
+.senix-border-med { border: 1px solid var(--senix-border-med); }
+.senix-border-blue { border: 1px solid var(--senix-blue-500); }
+.senix-border-top { border-top: 1px solid var(--senix-border); }
+.senix-border-bottom { border-bottom: 1px solid var(--senix-border); }
+
+/* ---- Shadows ---- */
+.senix-shadow-sm { box-shadow: var(--senix-shadow-sm); }
+.senix-shadow    { box-shadow: var(--senix-shadow); }
+.senix-shadow-md { box-shadow: var(--senix-shadow-md); }
+.senix-shadow-lg { box-shadow: var(--senix-shadow-lg); }
+
+/* ---- Glow ---- */
+.senix-glow-sm   { box-shadow: var(--senix-glow-sm); }
+.senix-glow      { box-shadow: var(--senix-glow); }
+.senix-glow-lg   { box-shadow: var(--senix-glow-lg); }
+.senix-glow-cyan { box-shadow: var(--senix-glow-cyan); }
+
+/* ==========================================================
+   6. LAYOUT BASE
+   ========================================================== */
+.senix-container {
+    width: 100%;
+    max-width: var(--senix-container);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--senix-sp-6);
+    padding-right: var(--senix-sp-6);
+}
+
+.senix-container-narrow {
+    max-width: var(--senix-container-narrow);
+}
+
+.senix-container-wide {
+    max-width: var(--senix-container-wide);
+}
+
+.senix-container-full {
+    max-width: 100%;
+    padding-left: var(--senix-sp-4);
+    padding-right: var(--senix-sp-4);
+}
+
+.senix-section {
+    padding-top: var(--senix-sp-24);
+    padding-bottom: var(--senix-sp-24);
+    position: relative;
+}
+
+.senix-section-sm {
+    padding-top: var(--senix-sp-16);
+    padding-bottom: var(--senix-sp-16);
+}
+
+.senix-section-lg {
+    padding-top: var(--senix-sp-32);
+    padding-bottom: var(--senix-sp-32);
+}
+
+/* ==========================================================
+   7. ICONOS
+   ========================================================== */
+.senix-icon {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+}
+
+.senix-icon-xs { width: 14px; height: 14px; }
+.senix-icon-sm { width: 18px; height: 18px; }
+.senix-icon-md { width: 24px; height: 24px; }
+.senix-icon-lg { width: 32px; height: 32px; }
+.senix-icon-xl { width: 48px; height: 48px; }
+.senix-icon-2xl { width: 64px; height: 64px; }
+
+.senix-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--senix-r-md);
+    background: var(--senix-grad-glass);
+    border: 1px solid var(--senix-border-med);
+    color: var(--senix-blue-400);
+    box-shadow: var(--senix-glow-xs);
+    transition: var(--senix-t);
+    position: relative;
+    overflow: hidden;
+}
+
+.senix-icon-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 168, 255, 0.15), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.senix-icon-wrap:hover::before {
+    opacity: 1;
+}
+
+.senix-icon-wrap svg,
+.senix-icon-wrap .senix-icon {
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 0 8px rgba(0, 168, 255, 0.6));
+    position: relative;
+    z-index: 1;
+}
+
+.senix-icon-wrap-lg {
+    width: 72px;
+    height: 72px;
+    border-radius: var(--senix-r-lg);
+}
+
+.senix-icon-wrap-lg svg,
+.senix-icon-wrap-lg .senix-icon {
+    width: 36px;
+    height: 36px;
+}
+
+.senix-icon-wrap-xl {
+    width: 96px;
+    height: 96px;
+    border-radius: var(--senix-r-xl);
+}
+
+.senix-icon-wrap-xl svg,
+.senix-icon-wrap-xl .senix-icon {
+    width: 48px;
+    height: 48px;
+}
+
+/* ==========================================================
+   8. FONDOS ESPECIALES
+   ========================================================== */
+.senix-grid-bg {
+    position: fixed;
+    inset: 0;
+    z-index: var(--senix-z-bg);
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(0, 168, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 168, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: senixGridScroll 40s linear infinite;
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 85%);
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 85%);
+    will-change: background-position;
+}
+
+@keyframes senixGridScroll {
+    0%   { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
+}
+
+.senix-ambient {
+    position: fixed;
+    inset: 0;
+    z-index: var(--senix-z-bg);
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.senix-ambient-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.35;
+    will-change: transform;
+}
+
+.senix-blob-1 {
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(0, 123, 255, 0.6), transparent 70%);
+    top: -250px;
+    left: -250px;
+    animation: senixBlobFloat1 30s ease-in-out infinite;
+}
+
+.senix-blob-2 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 67, 153, 0.6), transparent 70%);
+    bottom: -200px;
+    right: -200px;
+    animation: senixBlobFloat2 35s ease-in-out infinite;
+}
+
+.senix-blob-3 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0, 217, 168, 0.4), transparent 70%);
+    top: 40%;
+    left: 35%;
+    opacity: 0.15;
+    animation: senixBlobFloat3 40s ease-in-out infinite;
+}
+
+@keyframes senixBlobFloat1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%      { transform: translate(100px, 80px) scale(1.15); }
+    66%      { transform: translate(-50px, 120px) scale(0.9); }
+}
+
+@keyframes senixBlobFloat2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(-120px, -70px) scale(1.2); }
+}
+
+@keyframes senixBlobFloat3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(80px, -100px) scale(1.25); }
+}
+
+.senix-particles-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: var(--senix-z-bg);
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 0.85;
+}
+
+/* ==========================================================
+   9. ANIMACIONES BÁSICAS
+   ========================================================== */
+@keyframes senixFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes senixFadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes senixFadeInDown {
+    from { opacity: 0; transform: translateY(-40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes senixFadeInLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes senixFadeInRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes senixScaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes senixPulse {
+    0%, 100% { transform: scale(1);    opacity: 1; }
+    50%      { transform: scale(1.08); opacity: 0.85; }
+}
+
+@keyframes senixPulseGlow {
+    0%, 100% { 
+        box-shadow: 0 0 20px rgba(0, 168, 255, 0.3);
+        transform: scale(1);
+    }
+    50%      { 
+        box-shadow: 0 0 50px rgba(0, 168, 255, 0.7);
+        transform: scale(1.03);
+    }
+}
+
+@keyframes senixRotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+@keyframes senixFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-15px); }
+}
+
+@keyframes senixShimmer {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes senixBounce {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+}
+
+@keyframes senixGlowPulse {
+    0%, 100% { 
+        filter: drop-shadow(0 0 20px rgba(0, 168, 255, 0.4)); 
+    }
+    50%      { 
+        filter: drop-shadow(0 0 40px rgba(0, 168, 255, 0.9)); 
+    }
+}
+
+/* ==========================================================
+   10. HELPERS DE VISIBILIDAD
+   ========================================================== */
+.senix-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.senix-not-sr-only {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* ==========================================================
+   11. SCROLL REVEAL BASE
+   ========================================================== */
+.senix-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 
+        opacity 0.9s cubic-bezier(0.2, 0.9, 0.3, 1),
+        transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.senix-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.senix-reveal-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: 
+        opacity 0.9s cubic-bezier(0.2, 0.9, 0.3, 1),
+        transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.senix-reveal-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.senix-reveal-right {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: 
+        opacity 0.9s cubic-bezier(0.2, 0.9, 0.3, 1),
+        transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.senix-reveal-right.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.senix-reveal-scale {
+    opacity: 0;
+    transform: scale(0.92);
+    transition: 
+        opacity 0.9s cubic-bezier(0.2, 0.9, 0.3, 1),
+        transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.senix-reveal-scale.is-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Delays */
+.senix-delay-1 { transition-delay: 0.1s; }
+.senix-delay-2 { transition-delay: 0.2s; }
+.senix-delay-3 { transition-delay: 0.3s; }
+.senix-delay-4 { transition-delay: 0.4s; }
+.senix-delay-5 { transition-delay: 0.5s; }
+.senix-delay-6 { transition-delay: 0.6s; }
+.senix-delay-7 { transition-delay: 0.7s; }
+.senix-delay-8 { transition-delay: 0.8s; }
+
+/* ==========================================================
+   12. ACCESIBILIDAD
+   ========================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .senix-reveal,
+    .senix-reveal-left,
+    .senix-reveal-right,
+    .senix-reveal-scale {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ==========================================================
+   13. PRINT
+   ========================================================== */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .senix-particles-canvas,
+    .senix-ambient,
+    .senix-grid-bg,
+    .senix-nav,
+    .senix-flash-container {
+        display: none !important;
+    }
+    
+    .senix-reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

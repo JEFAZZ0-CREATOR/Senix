@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Estadísticas — EcoApp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="app-shell">
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="menu.html"><span class="brand-mark"></span>EcoApp</a>
+      <ul class="side-links" id="sideLinks"></ul>
+      <div class="side-user">
+        Sesión de <strong id="sideUserName">—</strong>
+        <button onclick="ecoappLogout()">Cerrar sesión →</button>
+      </div>
+    </aside>
+
+    <div class="main-col">
+      <header class="topbar-mobile" id="topbarMobile"></header>
+      <main class="main" style="max-width:1080px;">
+        <h1>Estadísticas</h1>
+        <p class="subtitle">Basadas en los residuos que has escaneado y guardado en tu historial.</p>
+
+        <div id="statsEmpty" class="card" style="display:none;">
+          <div class="empty-state">
+            <span class="em"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />
+              </svg></span>
+            Aún no hay datos suficientes.<br>Escanea algunos residuos para ver tus estadísticas.
+            <br><a class="btn btn-primary" href="escanear.html" style="margin-top:16px;">Escanear un residuo</a>
+          </div>
+        </div>
+
+        <div id="statsContent">
+          <div class="stat-row" id="statRow"></div>
+          <div class="charts-grid">
+            <div class="card chart-card">
+              <h3>Residuos por categoría</h3>
+              <p class="chart-sub">Cuántas veces has registrado cada tipo de material.</p>
+              <canvas id="chartCategoria"></canvas>
+            </div>
+            <div class="card chart-card">
+              <h3>Biodegradable vs. no biodegradable</h3>
+              <p class="chart-sub">Proporción de tus residuos según su biodegradabilidad.</p>
+              <canvas id="chartBio"></canvas>
+            </div>
+            <div class="card chart-card">
+              <h3>Nivel de impacto ambiental</h3>
+              <p class="chart-sub">Distribución de tus residuos por nivel de impacto estimado.</p>
+              <canvas id="chartImpacto"></canvas>
+            </div>
+            <div class="card chart-card">
+              <h3>Frecuencia de reciclaje en el tiempo</h3>
+              <p class="chart-sub">Residuos registrados por día.</p>
+              <canvas id="chartTendencia"></canvas>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-bottom:4px;">Objetos más frecuentes</h3>
+            <p class="chart-sub" style="margin-bottom:16px;">Qué tanto se repite cada objeto en tu historial.</p>
+            <table class="freq-table">
+              <thead>
+                <tr>
+                  <th>Objeto</th>
+                  <th>Categoría</th>
+                  <th>Veces</th>
+                  <th>% del total</th>
+                </tr>
+              </thead>
+              <tbody id="freqTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="clasificador.js"></script>
+  <script src="layout.js"></script>
+  <script src="app.js"></script>
+  <script>
+    ecoappInitShell("estadisticas");
+    ecoappReady.then(() => {
+      const hist = ecoappGetHistorial();
+      if (!hist.length) {
+        document.getElementById("statsEmpty").style.display = "block";
+        document.getElementById("statsContent").style.display = "none";
+      } else {
+        renderStats(hist);
+      }
+    });
+
+    function contarPor(arr, campo) {
+      const out = {};
+      arr.forEach(h => { out[h[campo]] = (out[h[campo]] || 0) + 1; });
+      return out;
+    }
+
+    function renderStats(hist) {
+      const total = hist.length;
+      const categoriaCount = contarPor(hist, "categoria");
+      const bioCount = { "Biodegradable": 0, "No biodegradable": 0 };
+      hist.forEach(h => bioCount[h.biodegradable ? "Biodegradable" : "No biodegradable"]++);
+      const impactoOrden = ["Bajo", "Medio", "Alto"];
+      const impactoCount = { Bajo: 0, Medio: 0, Alto: 0 };
+      hist.forEach(h => { if (impactoCount[h.nivelImpacto] !== undefined) impactoCount[h.nivelImpacto]++; });
+
+      const porFechaISO = {};
+      hist.forEach(h => {
+        const key = h.fecha.slice(0, 10);
+        porFechaISO[key] = (porFechaISO[key] || 0) + 1;
+      });
+      const clavesOrdenadas = Object.keys(porFechaISO).sort();
+      const fechasOrdenadas = clavesOrdenadas.map(k => ecoappFormatDate(k));
+      const porFecha = {};
+      clavesOrdenadas.forEach((k, i) => { porFecha[fechasOrdenadas[i]] = porFechaISO[k]; });
+
+      const statRow = document.getElementById("statRow");
+      const bioPct = Math.round((bioCount["Biodegradable"] / total) * 100);
+      const topCategoria = Object.entries(categoriaCount).sort((a, b) => b[1] - a[1])[0];
+      statRow.innerHTML = `
+      <div class="stat"><span class="n">${total}</span><span class="l">Residuos registrados</span></div>
+      <div class="stat"><span class="n">${bioPct}%</span><span class="l">Biodegradables</span></div>
+      <div class="stat"><span class="n">${topCategoria ? topCategoria[0] : "—"}</span><span class="l">Categoría top</span></div>
+    `;
+
+      const paleta = ["#20402c", "#537a5c", "#c9973f", "#b5602f", "#8fa88f", "#dcb56a", "#7c5a3a", "#3a6b2b"];
+
+      new Chart(document.getElementById("chartCategoria"), {
+        type: "doughnut",
+        data: { labels: Object.keys(categoriaCount), datasets: [{ data: Object.values(categoriaCount), backgroundColor: paleta }] },
+        options: { plugins: { legend: { position: "bottom" } } }
+      });
+
+      new Chart(document.getElementById("chartBio"), {
+        type: "bar",
+        data: { labels: Object.keys(bioCount), datasets: [{ data: Object.values(bioCount), backgroundColor: ["#3a6b2b", "#b5602f"] }] },
+        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
+      });
+
+      new Chart(document.getElementById("chartImpacto"), {
+        type: "bar",
+        data: { labels: impactoOrden, datasets: [{ data: impactoOrden.map(k => impactoCount[k]), backgroundColor: ["#8fa88f", "#c9973f", "#b5602f"] }] },
+        options: { indexAxis: "y", plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true, ticks: { precision: 0 } } } }
+      });
+
+      new Chart(document.getElementById("chartTendencia"), {
+        type: "line",
+        data: {
+          labels: fechasOrdenadas,
+          datasets: [{
+            label: "Residuos registrados",
+            data: fechasOrdenadas.map(f => porFecha[f]),
+            borderColor: "#20402c",
+            backgroundColor: "rgba(32,64,44,0.12)",
+            tension: 0.25, fill: true, pointRadius: 4
+          }]
+        },
+        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
+      });
+
+      const porObjeto = {};
+      hist.forEach(h => {
+        if (!porObjeto[h.nombre]) porObjeto[h.nombre] = { count: 0, categoria: h.categoria };
+        porObjeto[h.nombre].count++;
+      });
+      const filas = Object.entries(porObjeto).sort((a, b) => b[1].count - a[1].count);
+      const tbody = document.getElementById("freqTableBody");
+      tbody.innerHTML = filas.map(([nombre, info]) => `
+      <tr>
+        <td>${ecoappEscapeHtml(nombre)}</td>
+        <td>${ecoappEscapeHtml(info.categoria)}</td>
+        <td>${info.count}</td>
+        <td>${Math.round((info.count / total) * 100)}%</td>
+      </tr>
+    `).join("");
+    }
+  </script>
+</body>
+
+</html>

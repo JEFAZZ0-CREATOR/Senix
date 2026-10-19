@@ -1,0 +1,188 @@
+/* ==========================================================
+   SENIX v2.0 — RESPONSIVE (Optimizado)
+   Media queries mobile-first
+   ========================================================== */
+
+@media (min-width: 1400px) {
+    .senix-container { padding-left: var(--senix-sp-8); padding-right: var(--senix-sp-8); }
+    .senix-features-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 1399px) {
+    .senix-features-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+}
+
+@media (max-width: 1023px) {
+    .senix-nav { padding: 10px 18px; }
+    .senix-nav-links {
+        display: none;
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0; right: 0;
+        flex-direction: column;
+        background: rgba(5, 15, 30, 0.98);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: 1px solid var(--senix-border);
+        border-radius: var(--senix-r-lg);
+        padding: 16px;
+        gap: 4px;
+    }
+    .senix-nav.is-open .senix-nav-links { display: flex; }
+    .senix-nav-link { width: 100%; padding: 14px 20px; text-align: left; border-radius: var(--senix-r); }
+    .senix-nav-toggle { display: flex; }
+    .senix-nav-actions .senix-btn-ghost { display: none; }
+    .senix-hero { padding: 110px 20px 60px; }
+    .senix-split { grid-template-columns: 1fr; gap: 40px; }
+    .senix-demo-layout { grid-template-columns: 1fr; gap: 40px; padding: 60px 30px; }
+    .senix-demo-visual { max-width: 500px; margin: 0 auto; aspect-ratio: 4/3; }
+    .senix-grid-4, .senix-grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .senix-footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+    .senix-footer-brand { grid-column: 1 / -1; }
+    .senix-section { padding-top: var(--senix-sp-16); padding-bottom: var(--senix-sp-16); }
+    .senix-section-head { margin-bottom: 50px; }
+    .senix-app-layout { grid-template-columns: 1fr; }
+    .senix-main-content { padding: 30px 20px; }
+    .senix-showcase-grid { grid-template-columns: 1fr; }
+    .senix-showcase-split { grid-template-columns: 1fr; gap: 40px; }
+    .senix-showcase-3d-large { max-width: 500px; margin: 0 auto; }
+}
+
+@media (max-width: 899px) {
+    h1 { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+    h2 { font-size: clamp(1.5rem, 5vw, 2rem); }
+    h3 { font-size: clamp(1.1rem, 3vw, 1.4rem); }
+    .senix-section { padding-top: var(--senix-sp-12); padding-bottom: var(--senix-sp-12); }
+    .senix-section-head { margin-bottom: 40px; }
+    .senix-hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .senix-grid-2, .senix-grid-3, .senix-grid-4 { grid-template-columns: 1fr; }
+    .senix-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .senix-tech-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 767px) {
+    .senix-container { padding-left: var(--senix-sp-4); padding-right: var(--senix-sp-4); }
+    body { font-size: 15px; }
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.45rem; }
+    h3 { font-size: 1.15rem; }
+    .senix-nav { padding: 10px 14px; top: 10px; width: calc(100% - 20px); }
+    .senix-logo-svg { height: 32px; }
+    .senix-nav-actions .senix-btn { padding: 8px 16px; font-size: 0.68rem; }
+    .senix-hero { padding: 100px 16px 50px; min-height: auto; }
+    .senix-hero-title { letter-spacing: 1.5px; line-height: 1.05; }
+    .senix-hero-badge { font-size: 0.62rem; padding: 6px 14px; letter-spacing: 2px; margin-bottom: 20px; }
+    .senix-hero-subtitle { font-size: 0.92rem; margin-bottom: 30px; }
+    .senix-hero-actions { flex-direction: column; align-items: stretch; gap: 10px; margin-bottom: 40px; }
+    .senix-hero-actions .senix-btn { width: 100%; min-width: auto; }
+    .senix-hero-stats { gap: 14px; padding-top: 25px; }
+    .senix-stat-value { font-size: 1.5rem; }
+    .senix-stat-label { font-size: 0.6rem; letter-spacing: 1.5px; }
+    .senix-scroll-cue { display: none; }
+    .senix-section { padding-top: var(--senix-sp-10); padding-bottom: var(--senix-sp-10); }
+    .senix-section-head { margin-bottom: 35px; }
+    .senix-section-tag { font-size: 0.62rem; padding: 5px 14px; letter-spacing: 3px; margin-bottom: 16px; }
+    .senix-section-title { letter-spacing: 1.5px; margin-bottom: 14px; }
+    .senix-section-subtitle { font-size: 0.9rem; }
+    .senix-features-grid { grid-template-columns: 1fr; gap: 20px; }
+    .senix-feature-card { min-height: 320px; padding: 28px 22px; }
+    .senix-feature-icon { width: 54px; height: 54px; margin-bottom: 18px; }
+    .senix-feature-icon svg { width: 28px; height: 28px; }
+    .senix-demo-layout { padding: 40px 20px; border-radius: var(--senix-r-xl); }
+    .senix-demo-visual { aspect-ratio: 4/3; }
+    .senix-stats-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .senix-stat-card { padding: 28px 16px; }
+    .senix-stat-icon { width: 54px; height: 54px; margin-bottom: 14px; }
+    .senix-stat-icon svg { width: 26px; height: 26px; }
+    .senix-stat-big { font-size: 1.8rem; }
+    .senix-stat-desc { font-size: 0.65rem; letter-spacing: 1.5px; }
+    .senix-tech-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .senix-tech-card { padding: 22px 14px; }
+    .senix-tech-icon { width: 48px; height: 48px; margin-bottom: 12px; }
+    .senix-tech-icon svg { width: 24px; height: 24px; }
+    .senix-cta { padding: 70px 16px; }
+    .senix-footer { padding: 40px 16px 20px; }
+    .senix-footer-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+    .senix-footer-brand, .senix-footer-links { text-align: center; }
+    .senix-footer-brand p { margin: 0 auto; }
+    .senix-btn { letter-spacing: 2px; }
+    .senix-card { padding: 22px 18px; }
+    .senix-modal { padding: 30px 22px; }
+    .senix-toast-container { left: 15px; right: 15px; max-width: none; }
+    .senix-showcase-card { aspect-ratio: 3/4; }
+    .senix-showcase-info { padding: 20px 16px; }
+    .senix-showcase-3d-large { max-width: 100%; }
+}
+
+@media (max-width: 599px) {
+    h1 { font-size: 1.55rem; letter-spacing: 1px; }
+    h2 { font-size: 1.3rem; letter-spacing: 1px; }
+    h3 { font-size: 1.05rem; }
+    .senix-nav { padding: 8px 12px; top: 8px; }
+    .senix-logo-svg { height: 28px; }
+    .senix-nav-actions .senix-btn { padding: 7px 12px; font-size: 0.62rem; }
+    .senix-hero { padding: 90px 14px 40px; }
+    .senix-hero-title { font-size: 1.85rem; }
+    .senix-hero-badge { font-size: 0.58rem; padding: 5px 12px; }
+    .senix-hero-subtitle { font-size: 0.85rem; }
+    .senix-stat-value { font-size: 1.3rem; }
+    .senix-stat-label { font-size: 0.55rem; }
+    .senix-section { padding-top: var(--senix-sp-8); padding-bottom: var(--senix-sp-8); }
+    .senix-feature-card { min-height: 290px; padding: 24px 18px; }
+    .senix-feature-icon { width: 48px; height: 48px; }
+    .senix-feature-icon svg { width: 24px; height: 24px; }
+    .senix-stat-card { padding: 24px 12px; }
+    .senix-stat-big { font-size: 1.55rem; }
+    .senix-tech-card { padding: 18px 10px; }
+    .senix-tech-icon { width: 42px; height: 42px; }
+    .senix-btn { padding: 12px 22px; font-size: 0.72rem; }
+    .senix-btn-lg { padding: 13px 28px; font-size: 0.78rem; }
+    .senix-btn-xl { padding: 15px 32px; font-size: 0.82rem; }
+    .senix-loader-logo { font-size: 2rem; letter-spacing: 5px; }
+    .senix-form-input, .senix-form-textarea { padding: 12px 16px; font-size: 0.92rem; }
+    .senix-modal { padding: 24px 18px; }
+}
+
+@media (max-width: 479px) {
+    body { font-size: 14px; }
+    h1 { font-size: 1.4rem; }
+    h2 { font-size: 1.2rem; }
+    .senix-container { padding-left: 12px; padding-right: 12px; }
+    .senix-nav { padding: 6px 10px; }
+    .senix-logo-svg { height: 24px; }
+    .senix-hero-title { font-size: 1.55rem; }
+    .senix-hero-subtitle { font-size: 0.78rem; }
+    .senix-stat-value { font-size: 1.15rem; }
+    .senix-stat-label { font-size: 0.5rem; }
+    .senix-particles-canvas { opacity: 0.5; }
+    .senix-blob-1, .senix-blob-2 { width: 250px; height: 250px; }
+    .senix-blob-3 { display: none; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .senix-hero { min-height: auto; padding: 90px 20px 50px; }
+    .senix-hero-title { font-size: 2rem; }
+    .senix-hero-stats { grid-template-columns: repeat(4, 1fr); gap: 10px; padding-top: 20px; }
+    .senix-scroll-cue { display: none; }
+}
+
+@media (hover: none) {
+    .senix-feature-card:hover, .senix-card:hover, .senix-stat-card:hover, .senix-tech-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    .senix-btn:hover { transform: none; }
+    .senix-btn:active { transform: scale(0.97); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+    .senix-reveal, .senix-reveal-left, .senix-reveal-right, .senix-reveal-scale, .senix-reveal-blur {
+        opacity: 1;
+        transform: none;
+        filter: none;
+    }
+}

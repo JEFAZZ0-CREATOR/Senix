@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Historial — EcoApp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="app-shell">
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="menu.html"><span class="brand-mark"></span>EcoApp</a>
+      <ul class="side-links" id="sideLinks"></ul>
+      <div class="side-user">
+        Sesión de <strong id="sideUserName">—</strong>
+        <button onclick="ecoappLogout()">Cerrar sesión →</button>
+      </div>
+    </aside>
+
+    <div class="main-col">
+      <header class="topbar-mobile" id="topbarMobile"></header>
+      <main class="main">
+        <h1>Tu historial</h1>
+        <p class="subtitle">Todo lo que has escaneado y guardado en EcoApp.</p>
+
+        <div class="card" id="listWrap"></div>
+        <div style="margin-top:18px;" id="clearWrap"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="clasificador.js"></script>
+  <script src="layout.js"></script>
+  <script src="app.js"></script>
+  <script>
+    ecoappInitShell("historial");
+    ecoappReady.then(render);
+
+    function render() {
+      const hist = ecoappGetHistorial();
+      const wrap = document.getElementById("listWrap");
+      const clearWrap = document.getElementById("clearWrap");
+
+      if (!hist.length) {
+        wrap.innerHTML = `<div class="empty-state">
+        <span class="em"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/>
+        </svg></span>
+        Todavía no has guardado ningún residuo escaneado.<br>
+        <a class="btn btn-primary" href="escanear.html" style="margin-top:16px;">Escanear el primero</a>
+      </div>`;
+        clearWrap.innerHTML = "";
+        return;
+      }
+
+      wrap.innerHTML = "";
+      hist.forEach((item, i) => {
+        const row = document.createElement("div");
+        row.className = "hist-item";
+        row.innerHTML = `
+        <div class="hist-icon">${item.svgIcon || ""}</div>
+        <div>
+          <div><strong>${ecoappEscapeHtml(item.nombre)}</strong></div>
+          <div class="hist-date">
+            ${ecoappEscapeHtml(item.categoria)} · ${ecoappFormatDate(item.fecha)}
+            ${item.confianza ? " · " + item.confianza + "%" : ""}
+          </div>
+        </div>
+        <span class="badge ${item.biodegradable ? "badge-bio" : "badge-nobio"}">
+          ${item.biodegradable ? "Biodegradable" : "No biodegradable"}
+        </span>
+        <button class="icon-btn" onclick="eliminar(${i})">Eliminar</button>
+      `;
+        wrap.appendChild(row);
+      });
+
+      clearWrap.innerHTML = '<button class="btn btn-ghost" onclick="vaciar()">Vaciar historial</button>';
+    }
+
+    async function eliminar(i) { await ecoappDeleteHistorial(i); render(); }
+    async function vaciar() {
+      if (confirm("¿Borrar todo tu historial? Esta acción no se puede deshacer.")) {
+        await ecoappClearHistorial(); render();
+      }
+    }
+  </script>
+</body>
+
+</html>

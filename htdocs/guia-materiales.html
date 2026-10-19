@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>Guía de materiales — EcoApp</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .guia-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      margin-bottom: 18px;
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 22px;
+      transition: all .3s var(--ease);
+    }
+
+    .guia-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .guia-obj {
+      width: 90px;
+      height: 90px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, var(--sand), var(--sand-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset -3px -3px 8px rgba(0, 0, 0, .08), inset 3px 3px 8px rgba(255, 255, 255, .7);
+    }
+
+    .guia-obj svg {
+      width: 54px;
+      height: 54px;
+    }
+
+    .guia-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .guia-info .categoria {
+      font-size: .82rem;
+      color: var(--moss);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 10px;
+    }
+
+    .guia-datos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .guia-dato {
+      font-size: .85rem;
+    }
+
+    .guia-dato strong {
+      display: block;
+      color: var(--moss);
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 620px) {
+      .guia-card {
+        grid-template-columns: 1fr;
+        padding: 20px;
+      }
+
+      .guia-obj {
+        width: 72px;
+        height: 72px;
+      }
+
+      .guia-obj svg {
+        width: 44px;
+        height: 44px;
+      }
+
+      .guia-datos {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-shell">
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="menu.html"><span class="brand-mark"></span>EcoApp</a>
+      <ul class="side-links" id="sideLinks"></ul>
+      <div class="side-user">
+        Sesión de <strong id="sideUserName">—</strong>
+        <button onclick="ecoappLogout()">Cerrar sesión →</button>
+      </div>
+    </aside>
+
+    <div class="main-col">
+      <header class="topbar-mobile" id="topbarMobile"></header>
+      <main class="main" style="max-width:1000px;">
+        <h1>Guía de materiales</h1>
+        <p class="subtitle">Los materiales que EcoApp puede reconocer, con sus características, impacto y cómo
+          reciclarlos.</p>
+        <div id="guiaWrap"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="clasificador.js"></script>
+  <script src="layout.js"></script>
+  <script src="app.js"></script>
+  <script>
+    ecoappInitShell("guia");
+    const wrap = document.getElementById("guiaWrap");
+    ECOAPP_DATASET.forEach(m => {
+      const card = document.createElement("div");
+      card.className = "guia-card";
+      card.innerHTML = `
+        <div class="guia-obj">${m.svgIcon}</div>
+        <div class="guia-info">
+          <h3>${ecoappEscapeHtml(m.nombre)}</h3>
+          <div class="categoria">${ecoappEscapeHtml(m.categoria)} · ${m.biodegradable ? "Biodegradable" : "No biodegradable"}</div>
+          <p style="font-size:.92rem; color:var(--ink-soft); margin:0 0 4px;">${ecoappEscapeHtml(m.impacto)}</p>
+          <p style="font-size:.85rem; color:var(--moss); margin:0;"><strong>Cómo reciclar:</strong> ${ecoappEscapeHtml(m.reciclaje)}</p>
+          <div class="guia-datos">
+            <div class="guia-dato"><strong>Degradación</strong>${ecoappEscapeHtml(m.tiempoDegradacion)}</div>
+            <div class="guia-dato"><strong>Impacto</strong>${ecoappEscapeHtml(m.nivelImpacto)}</div>
+            <div class="guia-dato"><strong>Categoría</strong>${ecoappEscapeHtml(m.categoria)}</div>
+          </div>
+        </div>
+      `;
+      wrap.appendChild(card);
+    });
+  </script>
+</body>
+
+</html>

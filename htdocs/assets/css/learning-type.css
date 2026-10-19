@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --f-display: 'Baloo 2', 'Nunito Sans', sans-serif;
+  --f-body: 'Nunito Sans', system-ui, sans-serif;
+  --senix-font-display: 'Baloo 2', 'Nunito Sans', sans-serif;
+  --senix-font-heading: 'Baloo 2', 'Nunito Sans', sans-serif;
+  --senix-font-body: 'Nunito Sans', system-ui, sans-serif;
+}
+
+body {
+  font-family: 'Nunito Sans', system-ui, sans-serif !important;
+}
+
+body :is(button, input, select, textarea) {
+  font-family: 'Nunito Sans', system-ui, sans-serif !important;
+}
+
+body :is(h1, h2, h3, h4, h5, h6) {
+  font-family: 'Baloo 2', 'Nunito Sans', sans-serif !important;
+  letter-spacing: -.025em;
+  font-optical-sizing: auto;
+}
+
+body :is(code, pre, kbd, samp) {
+  font-family: 'Space Mono', 'Cascadia Code', monospace !important;
+}
+

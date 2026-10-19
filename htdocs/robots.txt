@@ -1,0 +1,38 @@
+# SignAI - robots.txt
+User-agent: *
+Allow: /
+Allow: /index.php
+Allow: /login.php
+Allow: /register.php
+Allow: /dictionary.php
+Allow: /words.php
+Allow: /lessons.php
+
+# Bloquear rutas privadas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /config/
+Disallow: /includes/
+Disallow: /uploads/
+Disallow: /logs/
+Disallow: /cache/
+Disallow: /database/
+Disallow: /profile.php
+Disallow: /settings.php
+Disallow: /menu.php
+Disallow: /lesson.php
+Disallow: /practice.php
+Disallow: /simulator.php
+
+# Crawlers específicos
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+
+# Sitemap
+Sitemap: http://senix.unaux.com/sitemap.xml

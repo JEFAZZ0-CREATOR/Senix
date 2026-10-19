@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60" width="220" height="60">
+    <defs>
+        <linearGradient id="senixLogoGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00a8ff"/>
+            <stop offset="50%" stop-color="#007bff"/>
+            <stop offset="100%" stop-color="#00ffcc"/>
+        </linearGradient>
+        <filter id="senixLogoGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <text x="4" y="46" font-family="Orbitron, sans-serif" font-size="40" font-weight="900" fill="url(#senixLogoGrad)" filter="url(#senixLogoGlow)" letter-spacing="5">SENIX</text>
+</svg>

@@ -1,0 +1,12 @@
+PAQUETE DE ACTUALIZACIÓN SENIX
+
+Este paquete conserva las rutas relativas esperadas por la web.
+Copia los archivos a la carpeta raíz /htdocs del sitio, aceptando reemplazar los existentes:
+
+1. index.php                         -> /htdocs/index.php
+2. assets/css/senix-gargantua.css    -> /htdocs/assets/css/senix-gargantua.css
+3. assets/js/senix-gargantua.js      -> /htdocs/assets/js/senix-gargantua.js
+4. assets/js/senix-3d-all.js         -> /htdocs/assets/js/senix-3d-all.js
+
+Antes de reemplazar index.php, guarda una copia del que está actualmente en el host.
+No subas este README ni la carpeta paquete-actualizacion-host como subcarpeta del sitio.

@@ -1,0 +1,9 @@
+.practice-panel h2{margin-top:0}
+.practice-panel .learn-grid{align-items:center}
+.practice-panel #camera-status{margin:18px 0 8px}
+.practice-panel #hands-count{color:#71e6d4}
+.learn-video-stage{position:relative;width:100%;min-height:260px;height:min(56vw,520px);max-height:65vh;overflow:hidden;border-radius:18px;background:#050911;isolation:isolate}
+.learn-video-stage .learn-video{position:absolute;inset:0;display:block;width:100%;height:100%;max-height:none;object-fit:cover}
+.learn-video-overlay{position:absolute;inset:0;width:100%;height:100%;transform:scaleX(-1);pointer-events:none}
+.practice-camera-label{position:absolute;left:14px;top:14px;z-index:2;padding:7px 10px;border-radius:999px;background:#091324c9;color:#9ff8e9;font-size:.68rem;font-weight:800;letter-spacing:.12em}
+@media(max-width:600px){.learn-video-stage{height:65vw;min-height:220px}}

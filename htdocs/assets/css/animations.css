@@ -1,0 +1,5 @@
+/* Animaciones auxiliares para pantallas de autenticación y componentes heredados. */
+@keyframes authGlowPulse { 0%,100% { filter:drop-shadow(0 0 5px rgba(102,244,255,.12)); } 50% { filter:drop-shadow(0 0 14px rgba(102,244,255,.35)); } }
+@keyframes authSoftFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-5px); } }
+.glitch { position:relative; animation:authGlowPulse 4s ease-in-out infinite; }
+@media (prefers-reduced-motion:reduce) { .glitch { animation:none; } }

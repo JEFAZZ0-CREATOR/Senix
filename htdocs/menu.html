@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel — EcoApp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="app-shell">
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="menu.html"><span class="brand-mark"></span>EcoApp</a>
+      <ul class="side-links" id="sideLinks"></ul>
+      <div class="side-user">
+        Sesión de <strong id="sideUserName">—</strong>
+        <button onclick="ecoappLogout()">Cerrar sesión →</button>
+      </div>
+    </aside>
+
+    <div class="main-col">
+      <header class="topbar-mobile" id="topbarMobile"></header>
+      <main class="main">
+        <h1 id="saludo">Hola</h1>
+        <p class="subtitle">Este es tu panel. Escanea un residuo o revisa lo que ya has registrado.</p>
+
+        <div class="stat-row">
+          <div class="stat"><span class="n" id="statTotal">0</span><span class="l">Residuos escaneados</span></div>
+          <div class="stat"><span class="n" id="statBio">0%</span><span class="l">Biodegradables</span></div>
+          <div class="stat"><span class="n" id="statTop">—</span><span class="l">Categoría top</span></div>
+        </div>
+
+        <div class="quick-grid">
+          <a class="quick-card" href="escanear.html">
+            <h3>Escanear un residuo</h3>
+            <p>Sube una foto y descubre su material, impacto y alternativas.</p>
+          </a>
+          <a class="quick-card" href="historial.html">
+            <h3>Ver historial</h3>
+            <p>Consulta todo lo que has registrado hasta ahora.</p>
+          </a>
+          <a class="quick-card" href="estadisticas.html">
+            <h3>Ver estadísticas</h3>
+            <p>Revisa qué tipos de residuo generas con más frecuencia.</p>
+          </a>
+          <a class="quick-card" href="mapa-reciclaje.html">
+            <h3>Mapa de reciclaje</h3>
+            <p>Encuentra puntos de acopio reales en Escobedo, N.L.</p>
+          </a>
+          <a class="quick-card" href="guia-materiales.html">
+            <h3>Guía de materiales</h3>
+            <p>Consulta los 10 materiales que EcoApp puede reconocer.</p>
+          </a>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="clasificador.js"></script>
+  <script src="layout.js"></script>
+  <script src="app.js"></script>
+  <script>
+    const user = ecoappInitShell("menu");
+    if (user) document.getElementById("saludo").textContent = "Hola, " + (user.nombre || user.email);
+
+    ecoappReady.then(() => {
+      const s = ecoappGetQuickStats();
+      document.getElementById("statTotal").textContent = s.total;
+      document.getElementById("statBio").textContent = s.bioPct + "%";
+      document.getElementById("statTop").textContent = s.topCategoria;
+    });
+  </script>
+</body>
+
+</html>

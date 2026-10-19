@@ -1,0 +1,170 @@
+/* ==========================================================
+   SENIX v2.0 — 3D Scenes
+   Estilos para contenedores de escenas Three.js
+   ========================================================== */
+
+/* ==========================================================
+   1. CONTENEDOR BASE
+   ========================================================== */
+[data-3d-scene] {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: block;
+}
+
+[data-3d-scene] canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    outline: none;
+}
+
+/* ==========================================================
+   2. HERO SCENE
+   ========================================================== */
+.senix-hero-spline {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 168, 255, 0.1) 0%,
+        transparent 60%
+    );
+}
+
+.senix-hero-spline[data-3d-scene] {
+    position: absolute;
+    inset: 0;
+}
+
+/* ==========================================================
+   3. FEATURE SCENES
+   ========================================================== */
+.senix-feature-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.65;
+    pointer-events: none;
+    transition: opacity 0.4s;
+}
+
+.senix-feature-bg[data-3d-scene] {
+    background: radial-gradient(
+        circle at 50% 50%,
+        rgba(0, 168, 255, 0.08) 0%,
+        transparent 70%
+    );
+}
+
+.senix-feature-card:hover .senix-feature-bg {
+    opacity: 0.9;
+}
+
+/* ==========================================================
+   4. DEMO SCENE
+   ========================================================== */
+.senix-demo-spline-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.senix-demo-spline-wrap[data-3d-scene] {
+    background: radial-gradient(
+        circle at 50% 50%,
+        rgba(0, 168, 255, 0.1) 0%,
+        transparent 65%
+    );
+}
+
+/* ==========================================================
+   5. CTA SCENE
+   ========================================================== */
+.senix-cta-3d {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.6;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.senix-cta-3d[data-3d-scene] {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 168, 255, 0.08) 0%,
+        transparent 60%
+    );
+}
+
+/* ==========================================================
+   6. FALLBACK
+   ========================================================== */
+.senix-3d-fallback {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(
+        circle at 50% 50%,
+        rgba(0, 168, 255, 0.15) 0%,
+        transparent 70%
+    );
+}
+
+.senix-3d-fallback-icon {
+    font-size: 4rem;
+    color: rgba(0, 168, 255, 0.4);
+    animation: senixPulse 2s ease infinite;
+}
+
+/* ==========================================================
+   7. LOADING STATE
+   ========================================================== */
+[data-3d-scene]:not(.is-ready)::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border: 2px solid rgba(0, 168, 255, 0.2);
+    border-top-color: var(--senix-blue-500, #00a8ff);
+    border-radius: 50%;
+    animation: senixSpin 1s linear infinite;
+    z-index: 5;
+    pointer-events: none;
+}
+
+[data-3d-scene].is-ready::before {
+    display: none;
+}
+
+/* ==========================================================
+   8. RESPONSIVE
+   ========================================================== */
+@media (max-width: 768px) {
+    .senix-feature-bg {
+        opacity: 0.4;
+    }
+    
+    .senix-feature-card:hover .senix-feature-bg {
+        opacity: 0.5;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    [data-3d-scene] canvas {
+        animation: none !important;
+    }
+    
+    [data-3d-scene]::before {
+        display: none;
+    }
+}

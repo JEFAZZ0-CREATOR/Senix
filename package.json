@@ -1,0 +1,14 @@
+{
+  "name": "senix-local",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "backend": "node backend/server.js",
+    "frontend": "cd frontend && npm run dev",
+    "start": "node backend/server.js",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
